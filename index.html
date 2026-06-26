@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="מונדיאל 2026">
+  <title>מונדיאל 2026</title>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { margin: 0; padding: 0; background: #0a1628; color: #e8edf5; }
+    #root { min-height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="root"><div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#8ba3c4;font-family:sans-serif;font-size:16px">טוען...</div></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+  <script type="text/babel" data-presets="react">
+
+const GROUP_STAGE = [
+  { id:1,  date:"2026-06-11", etTime:"15:00", group:"A", home:"מקסיקו 🇲🇽",      away:"ד. אפריקה 🇿🇦", venue:"אצטדיון אצטקה, מקסיקו סיטי",    homeEn:"Mexico",      awayEn:"South Africa" },
+  { id:2,  date:"2026-06-11", etTime:"22:00", group:"A", home:"קוריאה 🇰🇷",       away:"צ'כיה 🇨🇿",       venue:"אצטדיון אקרון, גוואדלחרה",            homeEn:"South Korea", awayEn:"Czechia" },
+  { id:3,  date:"2026-06-12", etTime:"15:00", group:"B", home:"קנדה 🇨🇦",         away:"בוסניה 🇧🇦",       venue:"BMO Field, טורונטו",               homeEn:"Canada",      awayEn:"Bosnia" },
+  { id:4,  date:"2026-06-12", etTime:"21:00", group:"D", home:'ארה"ב 🇺🇸',        away:"פרגוואי 🇵🇾",      venue:"SoFi Stadium, לוס אנג׳לס",           homeEn:"USA",         awayEn:"Paraguay" },
+  { id:5,  date:"2026-06-13", etTime:"15:00", group:"B", home:"קטאר 🇶🇦",         away:"שווייץ 🇨🇭",       venue:"Levi's Stadium, סן פרנסיסקו",        homeEn:"Qatar",       awayEn:"Switzerland" },
+  { id:6,  date:"2026-06-13", etTime:"18:00", group:"C", home:"ברזיל 🇧🇷",         away:"מרוקו 🇲🇦",        venue:"MetLife Stadium, ניו יורק",       homeEn:"Brazil",      awayEn:"Morocco" },
+  { id:7,  date:"2026-06-13", etTime:"21:00", group:"C", home:"האיטי 🇭🇹",         away:"סקוטלנד 🏴󠁧󠁢󠁳󠁣󠁴󠁿",    venue:"Gillette Stadium, בוסטון",       homeEn:"Haiti",       awayEn:"Scotland" },
+  { id:8,  date:"2026-06-14", etTime:"00:00", group:"D", home:"אוסטרליה 🇦🇺",     away:"טורקיה 🇹🇷",       venue:"BC Place, ונקובר",                 homeEn:"Australia",   awayEn:"Turkey" },
+  { id:9,  date:"2026-06-14", etTime:"13:00", group:"E", home:"גרמניה 🇩🇪",        away:"קורסאו 🇨🇼",       venue:"NRG Stadium, יוסטון",              homeEn:"Germany",     awayEn:"Curacao" },
+  { id:10, date:"2026-06-14", etTime:"16:00", group:"F", home:"הולנד 🇳🇱",         away:"יפן 🇯🇵",          venue:"AT&T Stadium, דאלאס",          homeEn:"Netherlands", awayEn:"Japan" },
+  { id:11, date:"2026-06-14", etTime:"19:00", group:"E", home:"ח. השנהב 🇨🇮",    away:"אקוודור 🇪🇨",      venue:"Lincoln Financial, פילדלפיה",      homeEn:"Ivory Coast", awayEn:"Ecuador" },
+  { id:12, date:"2026-06-14", etTime:"22:00", group:"F", home:"שוודיה 🇸🇪",        away:"תוניסיה 🇹🇳",      venue:"אצטדיון BBVA, מונטריי",            homeEn:"Sweden",      awayEn:"Tunisia" },
+  { id:13, date:"2026-06-15", etTime:"12:00", group:"H", home:"ספרד 🇪🇸",          away:"כף ורדה 🇨🇻",      venue:"Mercedes-Benz Stadium, אטלנטה",    homeEn:"Spain",       awayEn:"Cape Verde" },
+  { id:14, date:"2026-06-15", etTime:"15:00", group:"G", home:"בלגיה 🇧🇪",         away:"מצרים 🇪🇬",        venue:"Lumen Field, סיאטל",               homeEn:"Belgium",     awayEn:"Egypt" },
+  { id:15, date:"2026-06-15", etTime:"18:00", group:"H", home:"סעודיה 🇸🇦",        away:"אורוגוואי 🇺🇾",    venue:"Hard Rock Stadium, מיאמי",         homeEn:"Saudi Arabia",awayEn:"Uruguay" },
+  { id:16, date:"2026-06-15", etTime:"21:00", group:"G", home:"איראן 🇮🇷",          away:"נ. זילנד 🇳🇿",    venue:"SoFi Stadium, לוס אנג׳לס",           homeEn:"Iran",        awayEn:"New Zealand" },
+  { id:17, date:"2026-06-16", etTime:"15:00", group:"I", home:"צרפת 🇫🇷",               away:"סנגל 🇸🇳",         venue:"MetLife Stadium, ניו יורק",       homeEn:"France",      awayEn:"Senegal" },
+  { id:18, date:"2026-06-16", etTime:"18:00", group:"I", home:"עיראק 🇮🇶",          away:"נורווגיה 🇳🇴",     venue:"Gillette Stadium, בוסטון",       homeEn:"Iraq",        awayEn:"Norway" },
+  { id:19, date:"2026-06-16", etTime:"21:00", group:"J", home:"ארגנטינה 🇦🇷",      away:"אלג'יריה 🇩🇿",     venue:"Arrowhead Stadium, קנזס סיטי",     homeEn:"Argentina",   awayEn:"Algeria" },
+  { id:20, date:"2026-06-17", etTime:"00:00", group:"J", home:"אוסטריה 🇦🇹",       away:"ירדן 🇯🇴",          venue:"Levi's Stadium, סן פרנסיסקו",        homeEn:"Austria",     awayEn:"Jordan" },
+  { id:21, date:"2026-06-17", etTime:"13:00", group:"K", home:"פורטוגל 🇵🇹",       away:"קונגו 🇨🇩",         venue:"NRG Stadium, יוסטון",              homeEn:"Portugal",    awayEn:"DR Congo" },
+  { id:22, date:"2026-06-17", etTime:"16:00", group:"L", home:"אנגליה 🏴󠁧󠁢󠁥󠁮󠁧󠁿",     away:"קרואטיה 🇭🇷",      venue:"AT&T Stadium, דאלאס",          homeEn:"England",     awayEn:"Croatia" },
+  { id:23, date:"2026-06-17", etTime:"19:00", group:"L", home:"גאנה 🇬🇭",           away:"פנמה 🇵🇦",          venue:"BMO Field, טורונטו",               homeEn:"Ghana",       awayEn:"Panama" },
+  { id:24, date:"2026-06-17", etTime:"22:00", group:"K", home:"אוזבקיסט' 🇺🇿",    away:"קולומביה 🇨🇴",      venue:"אצטדיון אצטקה, מקסיקו סיטי",      homeEn:"Uzbekistan",  awayEn:"Colombia" },
+  { id:25, date:"2026-06-18", etTime:"12:00", group:"A", home:"צ'כיה 🇨🇿",          away:"ד. אפריקה 🇿🇦",  venue:"Mercedes-Benz Stadium, אטלנטה",    homeEn:"Czechia",     awayEn:"South Africa" },
+  { id:26, date:"2026-06-18", etTime:"15:00", group:"B", home:"שווייץ 🇨🇭",         away:"בוסניה 🇧🇦",       venue:"SoFi Stadium, לוס אנג׳לס",           homeEn:"Switzerland", awayEn:"Bosnia" },
+  { id:27, date:"2026-06-18", etTime:"18:00", group:"B", home:"קנדה 🇨🇦",           away:"קטאר 🇶🇦",          venue:"BC Place, ונקובר",                 homeEn:"Canada",      awayEn:"Qatar" },
+  { id:28, date:"2026-06-18", etTime:"21:00", group:"A", home:"מקסיקו 🇲🇽",         away:"קוריאה 🇰🇷",        venue:"אצטדיון אקרון, גוואדלחרה",             homeEn:"Mexico",      awayEn:"South Korea" },
+  { id:29, date:"2026-06-19", etTime:"15:00", group:"D", home:'ארה"ב 🇺🇸',          away:"אוסטרליה 🇦🇺",     venue:"Lumen Field, סיאטל",               homeEn:"USA",         awayEn:"Australia" },
+  { id:30, date:"2026-06-19", etTime:"18:00", group:"C", home:"סקוטלנד 🏴󠁧󠁢󠁳󠁣󠁴󠁿",    away:"מרוקו 🇲🇦",        venue:"Gillette Stadium, בוסטון",       homeEn:"Scotland",    awayEn:"Morocco" },
+  { id:31, date:"2026-06-19", etTime:"20:30", group:"C", home:"ברזיל 🇧🇷",           away:"האיטי 🇭🇹",         venue:"Lincoln Financial, פילדלפיה",      homeEn:"Brazil",      awayEn:"Haiti" },
+  { id:32, date:"2026-06-19", etTime:"23:00", group:"D", home:"טורקיה 🇹🇷",          away:"פרגוואי 🇵🇾",      venue:"Levi's Stadium, סן פרנסיסקו",        homeEn:"Turkey",      awayEn:"Paraguay" },
+  { id:33, date:"2026-06-20", etTime:"13:00", group:"F", home:"הולנד 🇳🇱",           away:"שוודיה 🇸🇪",        venue:"NRG Stadium, יוסטון",              homeEn:"Netherlands", awayEn:"Sweden" },
+  { id:34, date:"2026-06-20", etTime:"16:00", group:"E", home:"גרמניה 🇩🇪",          away:"ח. השנהב 🇨🇮",   venue:"BMO Field, טורונטו",               homeEn:"Germany",     awayEn:"Ivory Coast" },
+  { id:35, date:"2026-06-20", etTime:"20:00", group:"E", home:"אקוודור 🇪🇨",         away:"קורסאו 🇨🇼",       venue:"Arrowhead Stadium, קנזס סיטי",     homeEn:"Ecuador",     awayEn:"Curacao" },
+  { id:36, date:"2026-06-21", etTime:"00:00", group:"F", home:"תוניסיה 🇹🇳",         away:"יפן 🇯🇵",           venue:"אצטדיון BBVA, מונטריי",            homeEn:"Tunisia",     awayEn:"Japan" },
+  { id:37, date:"2026-06-21", etTime:"12:00", group:"H", home:"ספרד 🇪🇸",             away:"סעודיה 🇸🇦",       venue:"Mercedes-Benz Stadium, אטלנטה",    homeEn:"Spain",       awayEn:"Saudi Arabia" },
+  { id:38, date:"2026-06-21", etTime:"15:00", group:"G", home:"בלגיה 🇧🇪",            away:"איראן 🇮🇷",         venue:"SoFi Stadium, לוס אנג׳לס",           homeEn:"Belgium",     awayEn:"Iran" },
+  { id:39, date:"2026-06-21", etTime:"18:00", group:"H", home:"אורוגוואי 🇺🇾",        away:"כף ורדה 🇨🇻",      venue:"Hard Rock Stadium, מיאמי",         homeEn:"Uruguay",     awayEn:"Cape Verde" },
+  { id:40, date:"2026-06-21", etTime:"21:00", group:"G", home:"נ. זילנד 🇳🇿",        away:"מצרים 🇪🇬",        venue:"BC Place, ונקובר",                 homeEn:"New Zealand", awayEn:"Egypt" },
+  { id:41, date:"2026-06-22", etTime:"13:00", group:"J", home:"ארגנטינה 🇦🇷",         away:"אוסטריה 🇦🇹",      venue:"AT&T Stadium, דאלאס",          homeEn:"Argentina",   awayEn:"Austria" },
+  { id:42, date:"2026-06-22", etTime:"17:00", group:"I", home:"צרפת 🇫🇷",                  away:"עיראק 🇮🇶",         venue:"Lincoln Financial, פילדלפיה",      homeEn:"France",      awayEn:"Iraq" },
+  { id:43, date:"2026-06-22", etTime:"20:00", group:"I", home:"נורווגיה 🇳🇴",          away:"סנגל 🇸🇳",          venue:"MetLife Stadium, ניו יורק",       homeEn:"Norway",      awayEn:"Senegal" },
+  { id:44, date:"2026-06-22", etTime:"23:00", group:"J", home:"ירדן 🇯🇴",              away:"אלג'יריה 🇩🇿",      venue:"Levi's Stadium, סן פרנסיסקו",        homeEn:"Jordan",      awayEn:"Algeria" },
+  { id:45, date:"2026-06-23", etTime:"13:00", group:"K", home:"פורטוגל 🇵🇹",           away:"אוזבקיסט' 🇺🇿",   venue:"NRG Stadium, יוסטון",              homeEn:"Portugal",    awayEn:"Uzbekistan" },
+  { id:46, date:"2026-06-23", etTime:"16:00", group:"L", home:"אנגליה 🏴󠁧󠁢󠁥󠁮󠁧󠁿",       away:"גאנה 🇬🇭",           venue:"Gillette Stadium, בוסטון",       homeEn:"England",     awayEn:"Ghana" },
+  { id:47, date:"2026-06-23", etTime:"19:00", group:"L", home:"פנמה 🇵🇦",               away:"קרואטיה 🇭🇷",      venue:"BMO Field, טורונטו",               homeEn:"Panama",      awayEn:"Croatia" },
+  { id:48, date:"2026-06-23", etTime:"22:00", group:"K", home:"קולומביה 🇨🇴",            away:"קונגו 🇨🇩",         venue:"אצטדיון אקרון, גוואדלחרה",             homeEn:"Colombia",    awayEn:"DR Congo" },
+  { id:49, date:"2026-06-24", etTime:"15:00", group:"B", home:"שווייץ 🇨🇭",             away:"קנדה 🇨🇦",          venue:"BC Place, ונקובר",                 homeEn:"Switzerland", awayEn:"Canada" },
+  { id:50, date:"2026-06-24", etTime:"15:00", group:"B", home:"בוסניה 🇧🇦",             away:"קטאר 🇶🇦",          venue:"Lumen Field, סיאטל",               homeEn:"Bosnia",      awayEn:"Qatar" },
+  { id:51, date:"2026-06-24", etTime:"18:00", group:"C", home:"סקוטלנד 🏴󠁧󠁢󠁳󠁣󠁴󠁿",      away:"ברזיל 🇧🇷",           venue:"Hard Rock Stadium, מיאמי",         homeEn:"Scotland",    awayEn:"Brazil" },
+  { id:52, date:"2026-06-24", etTime:"18:00", group:"C", home:"מרוקו 🇲🇦",               away:"האיטי 🇭🇹",          venue:"Mercedes-Benz Stadium, אטלנטה",   homeEn:"Morocco",     awayEn:"Haiti" },
+  { id:53, date:"2026-06-24", etTime:"21:00", group:"A", home:"צ'כיה 🇨🇿",               away:"מקסיקו 🇲🇽",         venue:"אצטדיון אצטקה, מקסיקו סיטי",     homeEn:"Czechia",     awayEn:"Mexico" },
+  { id:54, date:"2026-06-24", etTime:"21:00", group:"A", home:"ד. אפריקה 🇿🇦",        away:"קוריאה 🇰🇷",         venue:"אצטדיון BBVA, מונטריי",            homeEn:"South Africa",awayEn:"South Korea" },
+  { id:55, date:"2026-06-25", etTime:"16:00", group:"E", home:"קורסאו 🇨🇼",              away:"ח. השנהב 🇨🇮",    venue:"Lincoln Financial, פילדלפיה",      homeEn:"Curacao",     awayEn:"Ivory Coast" },
+  { id:56, date:"2026-06-25", etTime:"16:00", group:"E", home:"אקוודור 🇪🇨",             away:"גרמניה 🇩🇪",         venue:"MetLife Stadium, ניו יורק",       homeEn:"Ecuador",     awayEn:"Germany" },
+  { id:57, date:"2026-06-25", etTime:"19:00", group:"F", home:"יפן 🇯🇵",                 away:"שוודיה 🇸🇪",         venue:"AT&T Stadium, דאלאס",          homeEn:"Japan",       awayEn:"Sweden" },
+  { id:58, date:"2026-06-25", etTime:"19:00", group:"F", home:"תוניסיה 🇹🇳",             away:"הולנד 🇳🇱",           venue:"Arrowhead Stadium, קנזס סיטי",     homeEn:"Tunisia",     awayEn:"Netherlands" },
+  { id:59, date:"2026-06-25", etTime:"22:00", group:"D", home:"טורקיה 🇹🇷",              away:'ארה"ב 🇺🇸',           venue:"SoFi Stadium, לוס אנג׳לס",           homeEn:"Turkey",      awayEn:"USA" },
+  { id:60, date:"2026-06-25", etTime:"22:00", group:"D", home:"פרגוואי 🇵🇾",             away:"אוסטרליה 🇦🇺",       venue:"Levi's Stadium, סן פרנסיסקו",        homeEn:"Paraguay",    awayEn:"Australia" },
+  { id:61, date:"2026-06-26", etTime:"15:00", group:"I", home:"נורווגיה 🇳🇴",             away:"צרפת 🇫🇷",            venue:"Gillette Stadium, בוסטון",       homeEn:"Norway",      awayEn:"France" },
+  { id:62, date:"2026-06-26", etTime:"15:00", group:"I", home:"סנגל 🇸🇳",                 away:"עיראק 🇮🇶",            venue:"BMO Field, טורונטו",               homeEn:"Senegal",     awayEn:"Iraq" },
+  { id:63, date:"2026-06-26", etTime:"20:00", group:"H", home:"כף ורדה 🇨🇻",             away:"סעודיה 🇸🇦",          venue:"NRG Stadium, יוסטון",              homeEn:"Cape Verde",  awayEn:"Saudi Arabia" },
+  { id:64, date:"2026-06-26", etTime:"20:00", group:"H", home:"אורוגוואי 🇺🇾",           away:"ספרד 🇪🇸",            venue:"אצטדיון אקרון, גוואדלחרה",             homeEn:"Uruguay",     awayEn:"Spain" },
+  { id:65, date:"2026-06-26", etTime:"23:00", group:"G", home:"מצרים 🇪🇬",               away:"איראן 🇮🇷",            venue:"Lumen Field, סיאטל",               homeEn:"Egypt",       awayEn:"Iran" },
+  { id:66, date:"2026-06-26", etTime:"23:00", group:"G", home:"נ. זילנד 🇳🇿",           away:"בלגיה 🇧🇪",            venue:"BC Place, ונקובר",                 homeEn:"New Zealand", awayEn:"Belgium" },
+  { id:67, date:"2026-06-27", etTime:"17:00", group:"L", home:"פנמה 🇵🇦",                away:"אנגליה 🏴󠁧󠁢󠁥󠁮󠁧󠁿",       venue:"MetLife Stadium, ניו יורק",       homeEn:"Panama",      awayEn:"England" },
+  { id:68, date:"2026-06-27", etTime:"17:00", group:"L", home:"קרואטיה 🇭🇷",             away:"גאנה 🇬🇭",             venue:"Lincoln Financial, פילדלפיה",      homeEn:"Croatia",     awayEn:"Ghana" },
+  { id:69, date:"2026-06-27", etTime:"19:30", group:"K", home:"קולומביה 🇨🇴",             away:"פורטוגל 🇵🇹",          venue:"Hard Rock Stadium, מיאמי",         homeEn:"Colombia",    awayEn:"Portugal" },
+  { id:70, date:"2026-06-27", etTime:"19:30", group:"K", home:"קונגו 🇨🇩",               away:"אוזבקיסט' 🇺🇿",       venue:"Mercedes-Benz Stadium, אטלנטה",    homeEn:"DR Congo",    awayEn:"Uzbekistan" },
+  { id:71, date:"2026-06-27", etTime:"22:00", group:"J", home:"אלג'יריה 🇩🇿",            away:"אוסטריה 🇦🇹",          venue:"Arrowhead Stadium, קנזס סיטי",     homeEn:"Algeria",     awayEn:"Austria" },
+  { id:72, date:"2026-06-27", etTime:"22:00", group:"J", home:"ירדן 🇯🇴",                away:"ארגנטינה 🇦🇷",          venue:"AT&T Stadium, דאלאס",          homeEn:"Jordan",      awayEn:"Argentina" },
+];
+
+const KNOCKOUT = [
+  { id:73,  date:"2026-06-28", etTime:"15:00", stage:"שלב 32",      home:"ד. אפריקה 🇿🇦",  away:"קנדה 🇨🇦",   venue:"SoFi Stadium" },
+  { id:74,  date:"2026-06-29", etTime:"16:30", stage:"שלב 32",      home:"גרמניה 🇩🇪",  away:"מקום 3 (A/B/C/D/F)",   venue:"NRG Stadium" },
+  { id:75,  date:"2026-06-30", etTime:"21:00", stage:"שלב 32",      home:"הולנד 🇳🇱",    away:"מרוקו 🇲🇦",     venue:"Gillette Stadium" },
+  { id:76,  date:"2026-06-29", etTime:"20:00", stage:"שלב 32",      home:"ברזיל 🇧🇷",    away:"יפן 🇯🇵",   venue:"אצטדיון BBVA" },
+  { id:77,  date:"2026-06-30", etTime:"22:00", stage:"שלב 32",      home:"בית I מקום 1",  away:"מקום 3 (C/D/F/G/H)",   venue:"AT&T Stadium" },
+  { id:78,  date:"2026-06-30", etTime:"13:00", stage:"שלב 32",      home:"ח. השנהב 🇨🇮",  away:"בית I מקום 2",     venue:"MetLife Stadium" },
+  { id:79,  date:"2026-06-30", etTime:"21:00", stage:"שלב 32",      home:"מקסיקו 🇲🇽",     away:"מקום 3 (C/E/F/H/I)",     venue:"אצטדיון אצטקה" },
+  { id:80,  date:"2026-07-01", etTime:"12:00", stage:"שלב 32",      home:"בית L מקום 1", away:"מקום 3 (E/H/I/J/K)",     venue:"Mercedes-Benz Stadium" },
+  { id:81,  date:"2026-07-02", etTime:"01:00", stage:"שלב 32",      home:'ארה"ב 🇺🇸',      away:"מקום 3 (B/E/F/I/J)",     venue:"Lumen Field" },
+  { id:82,  date:"2026-07-01", etTime:"22:00", stage:"שלב 32",      home:"בית G מקום 1", away:"מקום 3 (A/E/H/I/J)",     venue:"Levi's Stadium" },
+  { id:83,  date:"2026-07-02", etTime:"15:00", stage:"שלב 32",      home:"בית H מקום 1", away:"בית J מקום 2",   venue:"SoFi Stadium" },
+  { id:84,  date:"2026-07-02", etTime:"19:00", stage:"שלב 32",      home:"בית K מקום 2", away:"בית L מקום 2",   venue:"BMO Field" },
+  { id:85,  date:"2026-07-02", etTime:"23:00", stage:"שלב 32",      home:"שווייץ 🇨🇭",     away:"מקום 3 (E/F/G/I/J)",     venue:"BC Place" },
+  { id:86,  date:"2026-07-03", etTime:"14:00", stage:"שלב 32",      home:"אוסטרליה 🇦🇺", away:"בית G מקום 2",   venue:"AT&T Stadium" },
+  { id:87,  date:"2026-07-03", etTime:"18:00", stage:"שלב 32",      home:"ארגנטינה 🇦🇷", away:"בית H מקום 2",   venue:"Hard Rock Stadium" },
+  { id:88,  date:"2026-07-03", etTime:"21:30", stage:"שלב 32",      home:"בית K מקום 1",  away:"מקום 3 (A/B/C/L)",     venue:"Arrowhead Stadium" },
+  { id:89,  date:"2026-07-04", etTime:"13:00", stage:"שמינית גמר", home:"זוכה 73",    away:"זוכה 75",    venue:"NRG Stadium" },
+  { id:90,  date:"2026-07-04", etTime:"17:00", stage:"שמינית גמר", home:"זוכה 74",    away:"זוכה 77",    venue:"Lincoln Financial" },
+  { id:91,  date:"2026-07-05", etTime:"16:00", stage:"שמינית גמר", home:"זוכה 76",    away:"זוכה 78",    venue:"MetLife Stadium" },
+  { id:92,  date:"2026-07-05", etTime:"20:00", stage:"שמינית גמר", home:"זוכה 79",    away:"זוכה 80",    venue:"אצטדיון אצטקה" },
+  { id:93,  date:"2026-07-06", etTime:"15:00", stage:"שמינית גמר", home:"זוכה 83",    away:"זוכה 84",    venue:"AT&T Stadium" },
+  { id:94,  date:"2026-07-06", etTime:"20:00", stage:"שמינית גמר", home:"זוכה 81",    away:"זוכה 82",    venue:"Lumen Field" },
+  { id:95,  date:"2026-07-07", etTime:"12:00", stage:"שמינית גמר", home:"זוכה 86",    away:"זוכה 88",    venue:"Mercedes-Benz Stadium" },
+  { id:96,  date:"2026-07-07", etTime:"16:00", stage:"שמינית גמר", home:"זוכה 85",    away:"זוכה 87",    venue:"BC Place" },
+  { id:97,  date:"2026-07-09", etTime:"16:00", stage:"רבע גמר",    home:"זוכה 89",    away:"זוכה 90",    venue:"Gillette Stadium" },
+  { id:98,  date:"2026-07-10", etTime:"15:00", stage:"רבע גמר",    home:"זוכה 93",    away:"זוכה 94",    venue:"SoFi Stadium" },
+  { id:99,  date:"2026-07-11", etTime:"17:00", stage:"רבע גמר",    home:"זוכה 91",    away:"זוכה 92",    venue:"Hard Rock Stadium" },
+  { id:100, date:"2026-07-11", etTime:"21:00", stage:"רבע גמר",    home:"זוכה 95",    away:"זוכה 96",    venue:"Arrowhead Stadium" },
+  { id:101, date:"2026-07-14", etTime:"15:00", stage:"חצי גמר",    home:"זוכה 97",    away:"זוכה 98",    venue:"AT&T Stadium, דאלאס" },
+  { id:102, date:"2026-07-15", etTime:"15:00", stage:"חצי גמר",    home:"זוכה 99",    away:"זוכה 100",   venue:"Mercedes-Benz Stadium, אטלנטה" },
+  { id:103, date:"2026-07-18", etTime:"17:00", stage:"גמר 3-4",    home:"מפסידת 101", away:"מפסידת 102", venue:"Hard Rock Stadium, מיאמי" },
+  { id:104, date:"2026-07-19", etTime:"15:00", stage:"גמר",         home:"זוכה 101",   away:"זוכה 102",   venue:"MetLife Stadium, ניו יורק" },
+];
+
+// ─── helpers ──────────────────────────────────────────────────────────────────
+
+function etToIdt(date, etTime) {
+  const [h, m] = etTime.split(":").map(Number);
+  const base = new Date(`${date}T${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:00Z`);
+  const idt  = new Date(base.getTime() + 7 * 3600000);
+  return {
+    idtDay:  idt.toISOString().slice(0, 10),
+    idtTime: `${String(idt.getUTCHours()).padStart(2,"0")}:${String(idt.getUTCMinutes()).padStart(2,"0")}`,
+  };
+}
+
+function toIso(date, etTime) {
+  const [h, m] = etTime.split(":").map(Number);
+  const utcH   = h + 4;
+  const addDay = utcH >= 24 ? 1 : 0;
+  const d      = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + addDay);
+  const pad = n => String(n).padStart(2,"0");
+  const fmt = (dt, hour) =>
+    `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(hour%24)}${pad(m)}00Z`;
+  const end = new Date(d);
+  if (utcH % 24 + 2 >= 24) end.setUTCDate(end.getUTCDate() + 1);
+  return { startIso: fmt(d, utcH), endIso: fmt(end, utcH + 2) };
+}
+
+function safeParam(s) {
+  return String(s).replace(/%/g,"%25").replace(/&/g,"%26").replace(/#/g,"%23").replace(/\+/g,"%2B");
+}
+
+function makeCalUrl(match) {
+  const title = match.group
+    ? "🏆 מונדיאל 2026 | " + match.home + " נגד " + match.away + " (בית " + match.group + ")"
+    : "🏆 מונדיאל 2026 | " + match.stage + ": " + match.home + " נגד " + match.away;
+  const { startIso, endIso } = toIso(match.date, match.etTime);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + safeParam(title) +
+    "&dates=" + startIso + "/" + endIso +
+    "&details=" + safeParam("FIFA World Cup 2026 • " + match.venue) +
+    "&location=" + safeParam(match.venue);
+}
+
+// ─── Standings computation ────────────────────────────────────────────────────
+// Given the current scores map, compute group standings
+function computeStandings(group, scoresMap, liveMap) {
+  const matches = GROUP_STAGE.filter(m => m.group === group);
+  const teams = {};
+
+  // collect all teams in the group
+  matches.forEach(m => {
+    [m.home, m.away].forEach(t => {
+      if (!teams[t]) teams[t] = { name:t, mp:0, w:0, d:0, l:0, gf:0, ga:0, pts:0 };
+    });
+  });
+
+  matches.forEach(m => {
+    const scoreStr = scoresMap[m.id] || liveMap[m.id];
+    if (!scoreStr) return;
+    const [hg, ag] = scoreStr.replace(' LIVE','').split('-').map(Number);
+    if (isNaN(hg) || isNaN(ag)) return;
+    const home = teams[m.home];
+    const away = teams[m.away];
+    home.mp++; away.mp++;
+    home.gf += hg; home.ga += ag;
+    away.gf += ag; away.ga += hg;
+    if (hg > ag)      { home.w++; home.pts+=3; away.l++; }
+    else if (hg < ag) { away.w++; away.pts+=3; home.l++; }
+    else              { home.d++; home.pts+=1; away.d++; away.pts+=1; }
+  });
+
+  return Object.values(teams).sort((a,b) =>
+    b.pts - a.pts || (b.gf-b.ga) - (a.gf-a.ga) || b.gf - a.gf
+  );
+}
+
+// ─── constants ────────────────────────────────────────────────────────────────
+
+// Known final scores — updated via storage or chat request
+const BAKED_SCORES = {
+  1: "2-0",  // Mexico - South Africa (Jun 11)
+  2: "2-1",  // South Korea - Czechia (Jun 11)
+  3: "1-1",  // Canada - Bosnia (Jun 12)
+  4: "4-1",  // USA - Paraguay (Jun 12)
+  5: "1-1",  // Qatar - Switzerland (Jun 13)
+  6: "1-1",  // Brazil - Morocco (Jun 13)
+  7: "0-1",  // Haiti - Scotland (Jun 13)
+  8: "2-0",  // Australia - Turkey (Jun 13/14)
+  9: "7-1",  // Germany - Curacao (Jun 14)
+  10: "2-2", // Netherlands - Japan (Jun 14)
+  11: "1-0", // Ivory Coast - Ecuador (Jun 14)
+  12: "5-1", // Sweden - Tunisia (Jun 14)
+  13: "0-0", // Spain - Cape Verde (Jun 15)
+  14: "1-1", // Belgium - Egypt (Jun 15)
+  15: "1-1", // Saudi Arabia - Uruguay (Jun 15)
+  16: "2-2", // Iran - New Zealand (Jun 15)
+  17: "3-1", // France - Senegal (Jun 16)
+  18: "1-4", // Iraq - Norway (Jun 16)
+  19: "3-0", // Argentina - Algeria (Jun 16)
+  20: "3-1", // Austria - Jordan (Jun 17)
+  21: "1-1", // Portugal - DR Congo (Jun 17)
+  22: "4-2", // England - Croatia (Jun 17)
+  23: "1-0", // Ghana - Panama (Jun 17)
+  24: "1-2", // Uzbekistan - Colombia (Jun 17)
+  25: "1-1", // Czechia - South Africa (Jun 18)
+  26: "4-1", // Switzerland - Bosnia (Jun 18)
+  27: "6-0", // Canada - Qatar (Jun 18)
+  28: "1-0", // Mexico - South Korea (Jun 18)
+  29: "2-0", // USA - Australia (Jun 19)
+  30: "0-1", // Scotland - Morocco (Jun 19)
+  31: "3-0", // Brazil - Haiti (Jun 19)
+  32: "0-1", // Turkey - Paraguay (Jun 19)
+  33: "5-1", // Netherlands - Sweden (Jun 20)
+  34: "2-1", // Germany - Ivory Coast (Jun 20)
+  35: "0-0", // Ecuador - Curacao (Jun 20)
+  36: "0-4", // Tunisia - Japan (Jun 21)
+  37: "4-0", // Spain - Saudi Arabia (Jun 21)
+  38: "0-0", // Belgium - Iran (Jun 21)
+  39: "2-2", // Uruguay - Cape Verde (Jun 21)
+  40: "1-3", // New Zealand - Egypt (Jun 21)
+  41: "2-0", // Argentina - Austria (Jun 22)
+  42: "3-0", // France - Iraq (Jun 22)
+  43: "3-2", // Norway - Senegal (Jun 22)
+  44: "1-2", // Jordan - Algeria (Jun 22)
+  45: "5-0", // Portugal - Uzbekistan (Jun 23)
+  46: "0-0", // England - Ghana (Jun 23)
+  47: "0-1", // Panama - Croatia (Jun 23)
+  48: "1-0", // Colombia - DR Congo (Jun 23)
+  49: "2-1", // Switzerland - Canada (Jun 24)
+  50: "3-1", // Bosnia - Qatar (Jun 24)
+  51: "0-3", // Scotland - Brazil (Jun 24)
+  52: "4-2", // Morocco - Haiti (Jun 24)
+  53: "0-3", // Czechia - Mexico (Jun 24)
+  54: "1-0", // South Africa - South Korea (Jun 24)
+  55: "0-2", // Curacao - Ivory Coast (Jun 25)
+  56: "2-1", // Ecuador - Germany (Jun 25)
+  57: "1-1", // Japan - Sweden (Jun 25)
+  58: "1-3", // Tunisia - Netherlands (Jun 25)
+  59: "3-2", // Turkey - USA (Jun 25)
+  60: "0-0", // Paraguay - Australia (Jun 25)
+};
+
+// Merge baked scores with any scores saved in storage
+const KNOWN_SCORES = { ...BAKED_SCORES };
+
+// Live (in-progress) matches — manually updated. Key = match id, value = current score.
+// A match listed here shows a red "משוחק" tag with its interim score, and is NOT
+// treated as finished (stays out of standings as a final result automatically).
+const LIVE_SCORES = {
+  // No matches currently in progress.
+};
+
+const GROUP_COLORS = {
+  A:"#e74c3c", B:"#e67e22", C:"#f1c40f", D:"#2ecc71",
+  E:"#1abc9c", F:"#3498db", G:"#9b59b6", H:"#e91e63",
+  I:"#ff5722", J:"#00bcd4", K:"#8bc34a", L:"#795548",
+};
+const STAGE_COLORS = {
+  "שלב 32":"#546e7a", "שמינית גמר":"#1565c0",
+  "רבע גמר":"#6a1b9a", "חצי גמר":"#b71c1c",
+  "גמר 3-4":"#4e342e", "גמר":"#c79200",
+};
+const HE_DAYS   = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+const HE_MONTHS = ["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
+
+// ─── App ──────────────────────────────────────────────────────────────────────
+
+function App() {
+  const [filter, setFilter]           = React.useState("all");
+  const [selected, setSelected]       = React.useState(new Set());
+  const [showKnockout, setShowKnockout] = React.useState(true);
+  const [search, setSearch]           = React.useState("");
+  const [view, setView]             = React.useState("schedule"); // "schedule" | "standings" | "bracket"
+  const [standGroup, setStandGroup]  = React.useState("A");
+  const [detailMatch, setDetailMatch] = React.useState(null); // match shown in detail modal
+  const [calQueue, setCalQueue] = React.useState(null); // list of matches to add to calendar (overlay)
+  const scores = KNOWN_SCORES;       // baked-in final results
+  const liveScores = LIVE_SCORES;    // baked-in interim scores for in-progress matches
+  const todayRef     = React.useRef(null);
+  const scrollPosRef = React.useRef(0);    // saves scroll position when entering standings
+
+  // ── Scroll to today on first render ──────────────────────────────────────────
+  React.useEffect(() => {
+    const t = setTimeout(() => {
+      if (todayRef.current) {
+        todayRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const allMatches = React.useMemo(() => [...GROUP_STAGE, ...KNOCKOUT], []);
+
+  // ── filter logic ────────────────────────────────────────────────────────────
+  const filteredGroup = React.useMemo(() => {
+    let m = GROUP_STAGE;
+    if (filter !== "all") m = m.filter(g => g.group === filter);
+    if (search) { const s = search.toLowerCase(); m = m.filter(g => g.home.toLowerCase().includes(s) || g.away.toLowerCase().includes(s)); }
+    return m;
+  }, [filter, search]);
+
+  const filteredKnockout = React.useMemo(() => {
+    if (!showKnockout) return [];
+    if (search) { const s = search.toLowerCase(); return KNOCKOUT.filter(g => g.stage.toLowerCase().includes(s) || g.home.toLowerCase().includes(s) || g.away.toLowerCase().includes(s)); }
+    return KNOCKOUT;
+  }, [showKnockout, search]);
+
+  // ── selection helpers ────────────────────────────────────────────────────────
+  function toggleSelect(id) {
+    setSelected(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  }
+  function selectAll() {
+    const ids = [...filteredGroup, ...filteredKnockout].filter(m => !scores[m.id] && !m.done).map(m => m.id);
+    setSelected(prev => { const n = new Set(prev); ids.forEach(id => n.add(id)); return n; });
+  }
+  function clearAll() { setSelected(new Set()); }
+  // The webview blocks multi-popups, .ics files, and window.open after confirm.
+  // The only reliable path is a direct user tap per event, so for multiple
+  // matches we show an overlay with a tappable calendar link for each one.
+  function openSelected() {
+    const chosen = allMatches.filter(m => selected.has(m.id))
+      .sort((a, b) => (a.date + a.etTime).localeCompare(b.date + b.etTime));
+    if (chosen.length === 0) return;
+    if (chosen.length === 1) {
+      window.open(makeCalUrl(chosen[0]), "_blank");
+      return;
+    }
+    setCalQueue(chosen);
+  }
+
+  // ── grouping by IDT date ─────────────────────────────────────────────────────
+  const groupedGroup    = React.useMemo(() => { const map = {}; filteredGroup.forEach(m => { const { idtDay } = etToIdt(m.date, m.etTime); (map[idtDay] = map[idtDay] || []).push(m); }); return map; }, [filteredGroup]);
+  const groupedKnockout = React.useMemo(() => { const map = {}; filteredKnockout.forEach(m => { const { idtDay } = etToIdt(m.date, m.etTime); (map[idtDay] = map[idtDay] || []).push(m); }); return map; }, [filteredKnockout]);
+  const allDates = [...new Set([...Object.keys(groupedGroup), ...Object.keys(groupedKnockout)])].sort();
+
+  const totalSelected = selected.size;
+
+  // ── render ───────────────────────────────────────────────────────────────────
+  return (
+    <div style={{ minHeight:"100vh", background:"linear-gradient(135deg,#0a1628 0%,#1a2d4f 50%,#0d1f3a 100%)", fontFamily:"'Segoe UI',system-ui,sans-serif", direction:"rtl", color:"#e8edf5" }}>
+
+      {/* Non-sticky hero */}
+      <div style={{ background:"linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 100%)", padding:"24px 20px 8px", textAlign:"center" }}>
+        <div style={{ fontSize:44, marginBottom:4 }}>⚽</div>
+        <h1 style={{ margin:0, fontSize:26, fontWeight:800, letterSpacing:-.5, background:"linear-gradient(90deg,#f4c430,#fff,#f4c430)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>
+          מונדיאל 2026 — לוח שידורים
+        </h1>
+        <p style={{ margin:"6px 0 0", fontSize:13, color:"#8ba3c4" }}>
+          104 משחקים • 11 יוני – 19 יולי 2026
+        </p>
+      </div>
+
+      {/* Sticky action bar */}
+      <div style={{ position:"sticky", top:0, zIndex:20,
+        background:"rgba(10,22,40,0.96)", backdropFilter:"blur(10px)",
+        borderBottom:"1px solid rgba(255,255,255,.08)",
+        padding:"10px 20px", display:"flex", justifyContent:"center", alignItems:"center", gap:10, flexWrap:"wrap" }}>
+          <button onClick={() => {
+              if (view === "standings") {
+                // Return to schedule and restore scroll position
+                setView("schedule");
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    window.scrollTo({ top: scrollPosRef.current, behavior: "instant" });
+                  });
+                });
+              } else {
+                // Save scroll position + clear selection before entering standings
+                scrollPosRef.current = window.scrollY;
+                setSelected(new Set());
+                setView("standings");
+              }
+            }}
+            style={{ display:"flex", alignItems:"center", gap:6, padding:"7px 16px", borderRadius:20, fontSize:13, fontWeight:600,
+              background: view === "standings" ? "rgba(52,152,219,.3)" : "rgba(52,152,219,.15)",
+              color:"#3498db", border:"1px solid rgba(52,152,219,.4)", cursor:"pointer" }}>
+            🏅 טבלאות ובתים
+          </button>
+          <button onClick={() => {
+              if (view === "bracket") {
+                setView("schedule");
+                requestAnimationFrame(() => requestAnimationFrame(() =>
+                  window.scrollTo({ top: scrollPosRef.current, behavior: "instant" })
+                ));
+              } else {
+                scrollPosRef.current = window.scrollY;
+                setSelected(new Set());
+                setView("bracket");
+              }
+            }}
+            style={{ display:"flex", alignItems:"center", gap:6, padding:"7px 16px", borderRadius:20, fontSize:13, fontWeight:600,
+              background: view === "bracket" ? "rgba(244,196,48,.3)" : "rgba(244,196,48,.12)",
+              color:"#f4c430", border:"1px solid rgba(244,196,48,.35)", cursor:"pointer" }}>
+            🏆 שלב הנוקאאוט
+          </button>
+          <button onClick={() => {
+              if (view !== "schedule") {
+                setView("schedule");
+                requestAnimationFrame(() => requestAnimationFrame(() =>
+                  window.scrollTo({ top: scrollPosRef.current, behavior: "instant" })
+                ));
+              }
+            }}
+            style={{ display:"flex", alignItems:"center", gap:6, padding:"7px 16px", borderRadius:20, fontSize:13, fontWeight:600,
+              background: view === "schedule" ? "rgba(109,184,109,.3)" : "rgba(109,184,109,.12)",
+              color:"#6db86d", border:"1px solid rgba(109,184,109,.4)", cursor:"pointer" }}>
+            📅 לוח משחקים
+          </button>
+      </div>
+
+
+
+
+      {/* ── BRACKET VIEW ─────────────────────────────────────────────────────── */}
+      {view === "bracket" && (() => {
+        // Constants — fixed heights so connectors align perfectly
+        const SH = 24;   // slot height px
+        const MG = 2;    // gap inside match (between 2 slots)
+        const MH = SH*2 + MG; // match box height = 50
+        // Spacing between matches in each round:
+        // R32: 0px between pairs, 8px between groups of 2
+        // R16: MH+8 space between matches (to align with R32 pairs)
+        // QF: 3*(MH+8)+MH space
+        // SF: 7*(MH+8)+MH space
+
+        const R32_SPACE = 8;   // gap between R32 matches
+        const ROUND_PAD = 8;   // padding at top before first match
+
+        // One match pair: [home, away] or null
+        const R32L = [
+          ["גרמניה 🇩🇪","מקום 3 (A/B/C/D/F)"],   // M74
+          ["בית I מקום 1","מקום 3 (C/D/F/G/H)"], // M77
+          ["ד. אפריקה 🇿🇦","קנדה 🇨🇦"],          // M73
+          ["הולנד 🇳🇱","מרוקו 🇲🇦"],              // M75
+          ["בית K מקום 2","בית L מקום 2"],        // M83
+          ["בית H מקום 1","בית J מקום 2"],        // M84
+          ['ארה"ב 🇺🇸',"בוסניה 🇧🇦"],              // M81
+          ["בית G מקום 1","מקום 3 (A/E/H/I/J)"], // M82
+        ];
+        const R32R = [
+          ["ברזיל 🇧🇷","יפן 🇯🇵"],                // M76
+          ["ח. השנהב 🇨🇮","בית I מקום 2"],        // M78
+          ["מקסיקו 🇲🇽","מקום 3 (C/E/F/H/I)"],   // M79
+          ["בית L מקום 1","מקום 3 (E/H/I/J/K)"], // M80
+          ["ארגנטינה 🇦🇷","בית H מקום 2"],        // M86
+          ["אוסטרליה 🇦🇺","בית G מקום 2"],        // M88
+          ["שווייץ 🇨🇭","מקום 3 (E/F/G/I/J)"],   // M85
+          ["בית K מקום 1","מקום 3 (D/E/I/J/L)"], // M87
+        ];
+
+        const Slot = ({name}) => {
+          const empty   = !name;
+          const generic = name && (name.includes("בית") || name.includes("מקום 3"));
+          return (
+            <div style={{
+              height: SH, display:"flex", alignItems:"center", padding:"0 7px",
+              fontSize:10, fontWeight: (!empty && !generic) ? 600 : 400,
+              color: empty ? "rgba(255,255,255,.18)" : generic ? "#607590" : "#e0e8f5",
+              background: empty ? "rgba(255,255,255,.02)" : "rgba(255,255,255,.05)",
+              border: "1px solid rgba(255,255,255,.09)",
+              borderRadius: 4,
+              whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis",
+            }}>{empty ? "—" : name}</div>
+          );
+        };
+
+        // A match box
+        const MB = ({pair, style}) => (
+          <div style={{ display:"flex", flexDirection:"column", gap: MG, ...style }}>
+            <Slot name={pair?.[0]} />
+            <Slot name={pair?.[1]} />
+          </div>
+        );
+
+        // We build each half as a flex-column of rows.
+        // R32: 8 matches, stacked with R32_SPACE gap
+        // R16: 4 matches, each centered over their 2 R32 parents
+        //   → top offset = MH/2 + R32_SPACE/2  (center of first pair)
+        //   → spacing between R16 matches = MH*2 + R32_SPACE*3  (= 50*2 + 8*3 = 124)
+        // QF: 2 matches
+        //   → top offset = center of first 2 R16 matches
+        //   → spacing = 2*(R16_spacing) + MH = 2*124+50 = 298? → let's just compute all positions
+
+        const R32_unit = MH + R32_SPACE; // 58px per R32 match including gap below (except last)
+        // R32 total height = 8*MH + 7*R32_SPACE + 2*ROUND_PAD
+        const totalH = 8*MH + 7*R32_SPACE + 2*ROUND_PAD; // = 8*50+7*8+2*8 = 400+56+16 = 472
+
+        // Compute vertical center of each R32 match
+        const r32Y = (i) => ROUND_PAD + i*R32_unit + MH/2; // center of match i
+
+        // R16 match i covers R32 matches 2i and 2i+1 → center between their centers
+        const r16Y = (i) => (r32Y(i*2) + r32Y(i*2+1)) / 2;
+
+        // QF match i covers R16 matches 2i and 2i+1
+        const qfY = (i) => (r16Y(i*2) + r16Y(i*2+1)) / 2;
+
+        // SF match 0 covers QF matches 0 and 1
+        const sfY = () => (qfY(0) + qfY(1)) / 2;
+
+        // Final = center of totalH
+        const finalY = totalH / 2;
+
+        // Column widths
+        const CW = {r32:130, conn:14, r16:116, qf:104, sf:96, final:84};
+
+        // Draw a column at absolute positions
+        const AbsCol = ({label, items, yFn, colW}) => (
+          <div style={{ width:colW, flexShrink:0, position:"relative", height:totalH }}>
+            <div style={{ textAlign:"center", fontSize:9.5, fontWeight:700, letterSpacing:.7,
+              color:"#8ba3c4", textTransform:"uppercase",
+              position:"absolute", top:-18, left:0, right:0 }}>{label}</div>
+            {items.map((pair, i) => {
+              const cy = yFn(i);
+              return (
+                <div key={i} style={{ position:"absolute", top: cy - MH/2, left:0, right:0 }}>
+                  <MB pair={pair} />
+                </div>
+              );
+            })}
+          </div>
+        );
+
+        // SVG connector: bracket-style lines between rounds
+        // For each pair (2i, 2i+1) in fromYs → draws a bracket meeting at midpoint → connects to toYs[i]
+        const ConnSVG = ({fromYs, toYs, w, h, flip}) => {
+          const paths = [];
+          for (let i = 0; i < fromYs.length; i += 2) {
+            const y1 = fromYs[i];       // center of first match in pair
+            const y2 = fromYs[i+1];     // center of second match in pair
+            const ym = (y1 + y2) / 2;  // midpoint between them
+            const yt = toYs[i/2];       // center of destination match
+            const x1 = flip ? w : 0;    // start x (side touching previous col)
+            const x2 = flip ? 0 : w;    // end x (side touching next col)
+            const xm = flip ? w*0.4 : w*0.6; // where vertical bar sits
+            // Two horizontal lines from each match center to xm, then vertical, then to next col
+            paths.push(
+              <g key={i}>
+                <line x1={x1} y1={y1} x2={xm} y2={y1} stroke="rgba(255,255,255,.2)" strokeWidth="1.2" />
+                <line x1={x1} y1={y2} x2={xm} y2={y2} stroke="rgba(255,255,255,.2)" strokeWidth="1.2" />
+                <line x1={xm} y1={y1} x2={xm} y2={y2} stroke="rgba(255,255,255,.2)" strokeWidth="1.2" />
+                <line x1={xm} y1={ym} x2={x2} y2={ym} stroke="rgba(255,255,255,.2)" strokeWidth="1.2" />
+              </g>
+            );
+          }
+          return <svg width={w} height={h} style={{ flexShrink:0 }}>{paths}</svg>;
+        };
+
+        // Final connector (SF → Final)
+        const FinalConn = ({fromY, toY, w, h, flip}) => (
+          <svg width={w} height={h} style={{ flexShrink:0 }}>
+            <path d={`M${flip?w:0},${fromY} H${w/2} V${toY} H${flip?0:w}`}
+              fill="none" stroke="rgba(244,196,48,.35)" strokeWidth="1.2" />
+          </svg>
+        );
+
+        const empties = (n) => Array(n).fill(null);
+        const r32Lys = R32L.map((_,i) => r32Y(i));
+        const r32Rys = R32R.map((_,i) => r32Y(i));
+        const r16Lys = empties(4).map((_,i) => r16Y(i));
+        const r16Rys = empties(4).map((_,i) => r16Y(i));
+        const qfLys  = empties(2).map((_,i) => qfY(i));
+        const qfRys  = empties(2).map((_,i) => qfY(i));
+        const sfLy   = sfY();
+        const sfRy   = sfY();
+        const fY     = finalY;
+
+        return (
+          <div style={{ padding:"34px 6px 80px", overflowX:"auto" }}>
+
+            <div style={{ display:"flex", alignItems:"flex-start", minWidth:800 }}>
+
+              {/* LEFT */}
+              <AbsCol label="שלב 32" items={R32L} yFn={r32Y} colW={CW.r32} />
+              <ConnSVG fromYs={r32Lys} toYs={r16Lys} w={CW.conn} h={totalH} flip={false} />
+              <AbsCol label="שמינית גמר" items={empties(4)} yFn={r16Y} colW={CW.r16} />
+              <ConnSVG fromYs={r16Lys} toYs={qfLys} w={CW.conn} h={totalH} flip={false} />
+              <AbsCol label="רבע גמר" items={empties(2)} yFn={qfY} colW={CW.qf} />
+              <ConnSVG fromYs={qfLys} toYs={[sfLy]} w={CW.conn} h={totalH} flip={false} />
+              <AbsCol label="חצי גמר" items={empties(1)} yFn={sfY} colW={CW.sf} />
+              <FinalConn fromY={sfLy} toY={fY} w={CW.conn} h={totalH} flip={false} />
+
+              {/* FINAL */}
+              <div style={{ width: CW.final, flexShrink:0, position:"relative", height:totalH }}>
+                <div style={{ position:"absolute", top: fY - 100, left:0, right:0, textAlign:"center" }}>
+                  <div style={{ fontSize:16 }}>🏆</div>
+                  <div style={{ fontSize:8.5, fontWeight:800, letterSpacing:2, color:"#f4c430", textTransform:"uppercase" }}>גמר</div>
+                  <div style={{ fontSize:8.5, color:"#8ba3c4" }}>19/7 · 03:00</div>
+                </div>
+                <div style={{ position:"absolute", top: fY - 40, left:0, right:0,
+                  background:"rgba(244,196,48,.08)", border:"1px solid rgba(244,196,48,.35)", borderRadius:8, padding:"5px" }}>
+                  <Slot name={null} />
+                  <div style={{ textAlign:"center", fontSize:8, color:"rgba(255,255,255,.2)", margin:"1px 0" }}>נגד</div>
+                  <Slot name={null} />
+                </div>
+                <div style={{ position:"absolute", top: fY + 50, left:0, right:0, textAlign:"center" }}>
+                  <div style={{ fontSize:8.5, fontWeight:700, color:"#8ba3c4" }}>מקום 3</div>
+                </div>
+                <div style={{ position:"absolute", top: fY + 66, left:0, right:0,
+                  background:"rgba(255,255,255,.04)", border:"1px solid rgba(255,255,255,.1)", borderRadius:8, padding:"5px" }}>
+                  <Slot name={null} />
+                  <div style={{ textAlign:"center", fontSize:8, color:"rgba(255,255,255,.2)", margin:"1px 0" }}>נגד</div>
+                  <Slot name={null} />
+                </div>
+              </div>
+
+              {/* RIGHT */}
+              <FinalConn fromY={sfRy} toY={fY} w={CW.conn} h={totalH} flip={true} />
+              <AbsCol label="חצי גמר" items={empties(1)} yFn={sfY} colW={CW.sf} />
+              <ConnSVG fromYs={qfRys} toYs={[sfRy]} w={CW.conn} h={totalH} flip={true} />
+              <AbsCol label="רבע גמר" items={empties(2)} yFn={qfY} colW={CW.qf} />
+              <ConnSVG fromYs={r16Rys} toYs={qfRys} w={CW.conn} h={totalH} flip={true} />
+              <AbsCol label="שמינית גמר" items={empties(4)} yFn={r16Y} colW={CW.r16} />
+              <ConnSVG fromYs={r32Rys} toYs={r16Rys} w={CW.conn} h={totalH} flip={true} />
+              <AbsCol label="שלב 32" items={R32R} yFn={r32Y} colW={CW.r32} />
+
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* ── STANDINGS VIEW ─────────────────────────────────────────────────── */}
+      {view === "standings" && (
+        <div style={{ padding:"16px", maxWidth:800, margin:"0 auto", paddingBottom:40 }}>
+          {/* Close (X) button — returns to schedule */}
+          <button onClick={() => {
+              setView("schedule");
+              requestAnimationFrame(() => requestAnimationFrame(() => {
+                window.scrollTo({ top: scrollPosRef.current, behavior: "instant" });
+              }));
+            }}
+            style={{ position:"absolute", left:16, top:16, zIndex:30,
+              width:36, height:36, borderRadius:"50%",
+              background:"rgba(255,255,255,.08)", border:"1px solid rgba(255,255,255,.15)",
+              color:"#e8edf5", fontSize:18, cursor:"pointer",
+              display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1 }}
+            title="חזור ללוח המשחקים">✕</button>
+
+          {/* Group selector */}
+          <div style={{ display:"flex", flexWrap:"wrap", gap:6, marginBottom:20 }}>
+            {"ABCDEFGHIJKL".split("").map(g => (
+              <button key={g} onClick={() => setStandGroup(g)}
+                style={{ padding:"6px 14px", borderRadius:20, fontSize:13, fontWeight:700,
+                  background: standGroup===g ? GROUP_COLORS[g] : "rgba(255,255,255,.07)",
+                  color: standGroup===g ? "#fff" : "#8ba3c4",
+                  border: standGroup===g ? "1px solid " + GROUP_COLORS[g] : "1px solid rgba(255,255,255,.12)",
+                  cursor:"pointer" }}>
+                בית {g}
+              </button>
+            ))}
+          </div>
+
+          {/* Table */}
+          {(() => {
+            const rows = computeStandings(standGroup, scores, liveScores);
+            const gc   = GROUP_COLORS[standGroup];
+            return (
+              <div style={{ background:"rgba(255,255,255,.04)", borderRadius:14, overflow:"hidden", border:"1px solid rgba(255,255,255,.08)" }}>
+                {/* Header */}
+                <div style={{ display:"grid", gridTemplateColumns:"28px 1fr 36px 28px 28px 28px 52px 36px", gap:0,
+                  padding:"10px 14px", borderBottom:"1px solid " + gc + "60",
+                  fontSize:11, fontWeight:700, color: gc, textAlign:"center" }}>
+                  <span></span>
+                  <span style={{ textAlign:"right" }}>קבוצה</span>
+                  <span>מש׳</span>
+                  <span>נ׳</span>
+                  <span>ת׳</span>
+                  <span>ה׳</span>
+                  <span>+/-</span>
+                  <span>נק׳</span>
+                </div>
+
+                {rows.map((t, i) => {
+                  const gd = t.gf - t.ga;
+                  const qualify = i < 2;
+                  const maybe   = i === 2;
+                  return (
+                    <div key={t.name} style={{ display:"grid", gridTemplateColumns:"28px 1fr 36px 28px 28px 28px 52px 36px",
+                      gap:0, padding:"12px 14px", alignItems:"center",
+                      borderBottom: i < rows.length-1 ? "1px solid rgba(255,255,255,.05)" : "none",
+                      background: qualify ? "rgba(52,211,153,.04)" : maybe ? "rgba(251,191,36,.03)" : "transparent" }}>
+                      <span style={{ fontSize:15, fontWeight:800, color: qualify ? "#34d399" : maybe ? "#fbbf24" : "#8ba3c4", textAlign:"center" }}>{i+1}</span>
+                      <span style={{ fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
+                        <span style={{ width:6, height:6, borderRadius:"50%",
+                          background: qualify ? "#34d399" : maybe ? "#fbbf24" : "transparent",
+                          flexShrink:0, display:"inline-block" }} />
+                        {t.name}
+                      </span>
+                      <span style={{ textAlign:"center", fontSize:13, color:"#c8d6e8" }}>{t.mp}</span>
+                      <span style={{ textAlign:"center", fontSize:13, color:"#34d399", fontWeight: t.w>0?700:400 }}>{t.w}</span>
+                      <span style={{ textAlign:"center", fontSize:13, color:"#c8d6e8" }}>{t.d}</span>
+                      <span style={{ textAlign:"center", fontSize:13, color:"#fc8181", fontWeight: t.l>0?700:400 }}>{t.l}</span>
+                      <span style={{ textAlign:"center", fontSize:12, color: gd>0?"#34d399":gd<0?"#fc8181":"#c8d6e8" }}>
+                        {t.gf}-{t.ga}
+                      </span>
+                      <span style={{ textAlign:"center", fontSize:15, fontWeight:800, color: gc }}>{t.pts}</span>
+                    </div>
+                  );
+                })}
+
+                {/* Legend */}
+                <div style={{ padding:"8px 14px", borderTop:"1px solid rgba(255,255,255,.06)", display:"flex", gap:16, fontSize:10, color:"#8ba3c4" }}>
+                  <span style={{ display:"flex", alignItems:"center", gap:4 }}><span style={{ width:6,height:6,borderRadius:"50%",background:"#34d399",display:"inline-block" }}/> עולה לשלב נוקאאוט</span>
+                  <span style={{ display:"flex", alignItems:"center", gap:4 }}><span style={{ width:6,height:6,borderRadius:"50%",background:"#fbbf24",display:"inline-block" }}/> אפשרי (שלישי מוביל)</span>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      )}
+
+      {/* ── SCHEDULE VIEW ────────────────────────────────────────────────────── */}
+      {view === "schedule" && (
+      <>{/* Controls */}
+      <div style={{ padding:"16px 16px 0", maxWidth:800, margin:"0 auto" }}>
+        <input placeholder="🔍 חפש קבוצה…" value={search} onChange={e => setSearch(e.target.value)}
+          style={{ width:"100%", boxSizing:"border-box", background:"rgba(255,255,255,.07)", border:"1px solid rgba(255,255,255,.15)", borderRadius:10, padding:"10px 14px", color:"#e8edf5", fontSize:15, outline:"none", marginBottom:12, direction:"rtl" }} />
+
+        <div style={{ display:"flex", flexWrap:"wrap", gap:6, marginBottom:12 }}>
+          <button onClick={() => setFilter("all")} style={fBtn(filter==="all","#3498db")}>כולם</button>
+          {"ABCDEFGHIJKL".split("").map(g => (
+            <button key={g} onClick={() => setFilter(g)} style={fBtn(filter===g, GROUP_COLORS[g])}>בית {g}</button>
+          ))}
+        </div>
+
+        <div style={{ display:"flex", gap:8, marginBottom:16, alignItems:"center", flexWrap:"wrap" }}>
+          <button onClick={() => setShowKnockout(p => !p)} style={fBtn(showKnockout,"#c79200")}>{showKnockout?"✓ ":""} שלבי נוקאאוט</button>
+          <div style={{ flex:1 }} />
+          {totalSelected > 0 && <span style={{ fontSize:13, color:"#f4c430" }}>{totalSelected} נבחרו</span>}
+          <button onClick={selectAll}  style={aBtn("#2ecc71")}>בחר הכל</button>
+          <button onClick={clearAll}   style={aBtn("#e74c3c")}>נקה</button>
+          <button onClick={openSelected} disabled={totalSelected===0} style={{ ...aBtn("#f4c430"), color:"#000", fontWeight:700, opacity: totalSelected===0 ? .4 : 1 }}>
+            📅 הוספה ליומן ({totalSelected})
+          </button>
+        </div>
+      </div>
+
+      {/* Match list */}
+      <div style={{ padding:"0 16px 100px", maxWidth:800, margin:"0 auto" }}>
+        {allDates.map(day => {
+          const dayMatches = [
+            ...(groupedGroup[day]||[]),
+            ...(groupedKnockout[day]||[]),
+          ].sort((a,b) => etToIdt(a.date,a.etTime).idtTime.localeCompare(etToIdt(b.date,b.etTime).idtTime));
+
+          const todayIDT = new Date(new Date().getTime() + 3 * 3600000).toISOString().slice(0, 10);
+          const isToday  = day === todayIDT;
+          const d  = new Date(day+"T12:00:00Z");
+          const dn = HE_DAYS[d.getUTCDay()];
+          const dd = d.getUTCDate();
+          const mm = HE_MONTHS[d.getUTCMonth()];
+
+          return (
+            <div key={day}>
+              <div ref={isToday ? todayRef : null}
+                style={{ padding:"12px 0 6px", fontSize:14, fontWeight:700, color: isToday ? "#f4c430" : "#8ba3c4", borderBottom:"1px solid rgba(255,255,255,.06)", marginBottom:8, marginTop:16, display:"flex", alignItems:"center", gap:8 }}>
+                <span style={{ fontSize:16 }}>{isToday ? "📍" : "📅"}</span> יום {dn}, {dd} {mm}{isToday ? " — היום" : ""}
+              </div>
+
+              {dayMatches.map(match => {
+                const { idtTime } = etToIdt(match.date, match.etTime);
+                const finalScore  = scores[match.id];
+                const currScore   = liveScores[match.id];
+                const isDone      = !!finalScore;
+                const isLive      = !isDone && !!currScore;
+                const shownScore  = finalScore || currScore;
+                const isSelected  = selected.has(match.id);
+                const color       = match.group ? GROUP_COLORS[match.group] : STAGE_COLORS[match.stage];
+                const label       = match.group ? `בית ${match.group}` : match.stage;
+
+                return (
+                  <div key={match.id}
+                    onClick={() => setDetailMatch(match)}
+                    style={{
+                      display:"flex", alignItems:"center", gap:10, padding:"10px 12px",
+                      background: isLive ? "linear-gradient(135deg,rgba(231,76,60,.12),rgba(231,76,60,.04))" : isDone ? "rgba(255,255,255,.02)" : isSelected ? "linear-gradient(135deg,rgba(244,196,48,.15),rgba(244,196,48,.05))" : "rgba(255,255,255,.04)",
+                      border: isLive ? "1px solid rgba(231,76,60,.45)" : isDone ? "1px solid rgba(255,255,255,.04)" : isSelected ? "1px solid rgba(244,196,48,.4)" : "1px solid rgba(255,255,255,.06)",
+                      borderRadius:10, marginBottom:6, cursor: (isDone || isLive) ? "default" : "pointer",
+                      opacity: isDone ? .65 : 1, transition:"all .15s ease",
+                    }}
+                  >
+                    {/* checkbox / done / live */}
+                    {isLive ? (
+                      <div style={{ width:18, height:18, borderRadius:"50%", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center" }}>
+                        <span style={{ width:9, height:9, borderRadius:"50%", background:"#e74c3c", animation:"pulse 1.2s ease-in-out infinite" }} />
+                      </div>
+                    ) : isDone ? (
+                      <div style={{ width:18, height:18, borderRadius:4, flexShrink:0, background:"rgba(100,180,100,.2)", border:"2px solid rgba(100,180,100,.5)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:9, color:"#6db86d" }}>✓</div>
+                    ) : (
+                      <div onClick={e => { e.stopPropagation(); toggleSelect(match.id); }}
+                        style={{ width:24, height:24, borderRadius:4, flexShrink:0, background: isSelected?"#f4c430":"rgba(255,255,255,.1)", border: isSelected?"2px solid #f4c430":"2px solid rgba(255,255,255,.2)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, color:"#000", fontWeight:700, cursor:"pointer" }}>
+                        {isSelected?"✓":""}
+                      </div>
+                    )}
+
+                    {/* group badge */}
+                    <span style={{ padding:"2px 8px", borderRadius:20, fontSize:11, fontWeight:700, background:color+"30", color, border:`1px solid ${color}50`, flexShrink:0, minWidth:50, textAlign:"center" }}>{label}</span>
+
+                    {/* time / done / live tag */}
+                    {isLive ? (
+                      <span style={{ fontSize:11, fontWeight:800, flexShrink:0, color:"#e74c3c", width:54, textAlign:"center", background:"rgba(231,76,60,.12)", borderRadius:4, padding:"1px 3px" }}>🔴 חי</span>
+                    ) : isDone ? (
+                      <span style={{ fontSize:11, fontWeight:700, flexShrink:0, color:"#6db86d", width:54, textAlign:"center", background:"rgba(100,180,100,.1)", borderRadius:4, padding:"1px 3px" }}>הסתיים</span>
+                    ) : (
+                      <span style={{ fontSize:14, fontWeight:800, flexShrink:0, color:"#e8edf5", width:40, textAlign:"center" }}>{idtTime}</span>
+                    )}
+
+                    {/* teams + score — RTL: home is rightmost, so put homeGoals on the right of the chip */}
+                    {(isDone || isLive) ? (
+                      <span style={{ fontSize:12, flex:1, fontWeight:600, display:"flex", alignItems:"center", gap:5, flexWrap:"nowrap", minWidth:0 }}>
+                        <span style={{ whiteSpace:"nowrap" }}>{match.home}</span>
+                        {(() => {
+                          const parts = shownScore.split("-");
+                          const hg = parts[0], ag = parts[1];
+                          // In RTL the chip sits between home (right) and away (left).
+                          // Render homeGoals–awayGoals but keep them visually ordered home|away
+                          // by forcing RTL inside the chip so the first number stays on the right.
+                          return (
+                            <span style={{ background: isLive ? "rgba(231,76,60,.25)" : "rgba(255,255,255,.12)", borderRadius:5, padding:"1px 8px", fontWeight:800, fontSize:12, color:"#fff", flexShrink:0, border: isLive ? "1px solid rgba(231,76,60,.5)" : "none", direction:"rtl", unicodeBidi:"isolate" }}>
+                              {hg + " - " + ag}
+                            </span>
+                          );
+                        })()}
+                        <span style={{ whiteSpace:"nowrap" }}>{match.away}</span>
+                      </span>
+                    ) : (
+                      <span style={{ fontSize:13, flex:1, fontWeight:600 }}>
+                        {match.home} <span style={{ color:"#8ba3c4", fontWeight:400 }}>-</span> {match.away}
+                      </span>
+                    )}
+
+
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+
+      </>
+      )}
+
+      {/* ── Add-to-calendar overlay (multiple matches) ────────────────────── */}
+      {calQueue && (
+        <div onClick={() => setCalQueue(null)}
+          style={{ position:"fixed", inset:0, zIndex:210, background:"rgba(0,0,0,.75)", backdropFilter:"blur(4px)", display:"flex", alignItems:"center", justifyContent:"center", padding:20, animation:"fadeIn .2s ease" }}>
+          <div onClick={e => e.stopPropagation()}
+            style={{ background:"linear-gradient(160deg,#16243f,#0d1a2f)", borderRadius:20, border:"1px solid rgba(255,255,255,.12)", maxWidth:440, width:"100%", maxHeight:"80vh", display:"flex", flexDirection:"column", boxShadow:"0 20px 60px rgba(0,0,0,.5)", overflow:"hidden" }}>
+            <div style={{ padding:"16px 18px", borderBottom:"1px solid rgba(255,255,255,.1)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+              <span style={{ fontSize:16, fontWeight:700, color:"#f4c430" }}>הוספת {calQueue.length} משחקים ליומן</span>
+              <button onClick={() => setCalQueue(null)}
+                style={{ width:30, height:30, borderRadius:"50%", background:"rgba(255,255,255,.1)", border:"none", color:"#e8edf5", fontSize:16, cursor:"pointer" }}>✕</button>
+            </div>
+            <div style={{ padding:"10px 14px 4px", fontSize:13, color:"#8ba3c4", lineHeight:1.5 }}>
+              הקש על כל משחק כדי להוסיף אותו ליומן. אחרי החזרה, הקש על המשחק הבא.
+            </div>
+            <div style={{ overflowY:"auto", padding:"8px 14px 16px", display:"flex", flexDirection:"column", gap:8 }}>
+              {calQueue.map((m, idx) => {
+                const { idtTime } = etToIdt(m.date, m.etTime);
+                const c = m.group ? GROUP_COLORS[m.group] : STAGE_COLORS[m.stage];
+                return (
+                  <a key={m.id} href="#"
+                    onClick={e => { e.preventDefault(); window.open(makeCalUrl(m), "_blank"); }}
+                    style={{ display:"flex", alignItems:"center", gap:10, padding:"12px 14px", borderRadius:12, background:"rgba(255,255,255,.05)", border:"1px solid rgba(255,255,255,.1)", textDecoration:"none", color:"#e8edf5" }}>
+                    <span style={{ width:26, height:26, borderRadius:"50%", background:"rgba(244,196,48,.15)", color:"#f4c430", fontSize:13, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>{idx+1}</span>
+                    <span style={{ fontSize:14, fontWeight:600, flex:1 }}>{m.home} - {m.away}</span>
+                    <span style={{ fontSize:12, color:"#8ba3c4", flexShrink:0 }}>{idtTime}</span>
+                    <span style={{ fontSize:16, flexShrink:0 }}>📅</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Match detail modal ─────────────────────────────────────────────── */}
+      {detailMatch && (() => {
+        const m = detailMatch;
+        const { idtTime, idtDay } = etToIdt(m.date, m.etTime);
+        const fScore = scores[m.id];
+        const lScore = liveScores[m.id];
+        const dDone  = !!fScore;
+        const dLive  = !dDone && !!lScore;
+        const dScore = fScore || lScore;
+        const dColor = m.group ? GROUP_COLORS[m.group] : STAGE_COLORS[m.stage];
+        const dLabel = m.group ? "בית " + m.group : m.stage;
+        const dObj   = new Date(idtDay + "T12:00:00Z");
+        const dName  = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"][dObj.getDay()];
+        const monthName = ["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"][dObj.getMonth()];
+
+        return (
+          <div onClick={() => setDetailMatch(null)}
+            style={{ position:"fixed", inset:0, zIndex:200, background:"rgba(0,0,0,.7)", backdropFilter:"blur(4px)", display:"flex", alignItems:"center", justifyContent:"center", padding:20, animation:"fadeIn .2s ease" }}>
+            <div onClick={e => e.stopPropagation()}
+              style={{ background:"linear-gradient(160deg,#16243f,#0d1a2f)", borderRadius:20, border:"1px solid rgba(255,255,255,.12)", maxWidth:440, width:"100%", boxShadow:"0 20px 60px rgba(0,0,0,.5)", overflow:"hidden" }}>
+
+              {/* header band with group + close */}
+              <div style={{ background:dColor+"22", borderBottom:"1px solid "+dColor+"44", padding:"14px 18px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                <span style={{ padding:"4px 12px", borderRadius:20, fontSize:13, fontWeight:700, background:dColor+"33", color:dColor, border:"1px solid "+dColor+"55" }}>{dLabel}</span>
+                <button onClick={() => setDetailMatch(null)}
+                  style={{ width:32, height:32, borderRadius:"50%", background:"rgba(255,255,255,.1)", border:"none", color:"#e8edf5", fontSize:17, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>✕</button>
+              </div>
+
+              {/* teams + score/time */}
+              <div style={{ padding:"24px 18px 18px", textAlign:"center" }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:16, marginBottom:8 }}>
+                  <span style={{ fontSize:18, fontWeight:700, flex:1, textAlign:"left" }}>{m.away}</span>
+                  {(dDone || dLive) ? (
+                    <span style={{ fontSize:26, fontWeight:800, color:"#fff", background: dLive?"rgba(231,76,60,.25)":"rgba(255,255,255,.1)", borderRadius:10, padding:"4px 14px", direction:"rtl", unicodeBidi:"isolate", border: dLive?"1px solid rgba(231,76,60,.5)":"none" }}>
+                      {dScore.split("-")[0] + " - " + dScore.split("-")[1]}
+                    </span>
+                  ) : (
+                    <span style={{ fontSize:24, fontWeight:800, color: "#f4c430" }}>{idtTime}</span>
+                  )}
+                  <span style={{ fontSize:18, fontWeight:700, flex:1, textAlign:"right" }}>{m.home}</span>
+                </div>
+                {dLive && <div style={{ fontSize:13, color:"#e74c3c", fontWeight:700 }}>🔴 משוחק כעת</div>}
+                {dDone && <div style={{ fontSize:13, color:"#6db86d", fontWeight:600 }}>המשחק הסתיים</div>}
+              </div>
+
+              {/* details list */}
+              <div style={{ padding:"0 18px 22px", display:"flex", flexDirection:"column", gap:1 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:"rgba(255,255,255,.04)", borderRadius:"10px 10px 0 0" }}>
+                  <span style={{ fontSize:18, width:24, textAlign:"center" }}>📅</span>
+                  <span style={{ fontSize:14, color:"#c8d6e8" }}>יום {dName}, {dObj.getUTCDate()} ב{monthName}</span>
+                </div>
+                <div style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:"rgba(255,255,255,.04)" }}>
+                  <span style={{ fontSize:18, width:24, textAlign:"center" }}>🕐</span>
+                  <span style={{ fontSize:14, color:"#c8d6e8" }}>{idtTime} (שעון ישראל)</span>
+                </div>
+                {(() => {
+                  const parts = m.venue.split(",");
+                  const stadium = parts[0].trim();
+                  const city = parts.length > 1 ? parts.slice(1).join(",").trim() : null;
+                  return (
+                    <>
+                      <div style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:"rgba(255,255,255,.04)" }}>
+                        <span style={{ fontSize:18, width:24, textAlign:"center" }}>🏟️</span>
+                        <span style={{ fontSize:14, color:"#c8d6e8" }}>{stadium}</span>
+                      </div>
+                      {city && (
+                        <div style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:"rgba(255,255,255,.04)" }}>
+                          <span style={{ fontSize:18, width:24, textAlign:"center" }}>📍</span>
+                          <span style={{ fontSize:14, color:"#c8d6e8" }}>{city}</span>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+                <div style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:"rgba(244,196,48,.08)", borderRadius:"0 0 10px 10px", border:"1px solid rgba(244,196,48,.2)" }}>
+                  <span style={{ fontSize:18, width:24, textAlign:"center" }}>📺</span>
+                  <span style={{ fontSize:14, color:"#f4d77a", fontWeight:600 }}>כאן 11 · כאן BOX (שידור חינם)</span>
+                </div>
+              </div>
+
+              {/* add to calendar button (only for upcoming) */}
+              {!dDone && !dLive && (
+                <div style={{ padding:"0 18px 20px" }}>
+                  <button onClick={() => { window.open(makeCalUrl(m), "_blank"); }}
+                    style={{ width:"100%", padding:"12px", borderRadius:12, border:"none", background:"linear-gradient(135deg,#f4c430,#e0a800)", color:"#1a1a1a", fontSize:15, fontWeight:700, cursor:"pointer" }}>
+                    📅 הוספה ליומן
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Bottom bar */}
+      {totalSelected > 0 && view === "schedule" && (
+        <div style={{ position:"fixed", bottom:0, left:0, right:0, background:"linear-gradient(135deg,#1a2d4f,#0d1f3a)", borderTop:"1px solid rgba(244,196,48,.3)", padding:"12px 20px", display:"flex", justifyContent:"center", gap:12, alignItems:"center" }}>
+          <span style={{ color:"#f4c430", fontWeight:700 }}>{totalSelected} משחקים נבחרו</span>
+          <button onClick={openSelected} style={{ background:"linear-gradient(135deg,#f4c430,#e6b800)", color:"#000", fontWeight:800, fontSize:15, border:"none", borderRadius:10, padding:"10px 24px", cursor:"pointer" }}>
+            📅 הוספה ליומן
+          </button>
+          <button onClick={clearAll} style={{ background:"rgba(255,255,255,.08)", color:"#e8edf5", border:"none", borderRadius:10, padding:"10px 16px", cursor:"pointer" }}>נקה</button>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.45; transform:scale(.75); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+      `}</style>
+    </div>
+  );
+}
+
+function fBtn(active, color) {
+  return { padding:"6px 12px", borderRadius:20, fontSize:12, fontWeight:600, background: active?color:"rgba(255,255,255,.07)", color: active?"#fff":"#8ba3c4", border: active?`1px solid ${color}`:"1px solid rgba(255,255,255,.12)", cursor:"pointer" };
+}
+function aBtn(color) {
+  return { padding:"7px 14px", borderRadius:8, fontSize:12, fontWeight:600, background:color+"20", color, border:`1px solid ${color}50`, cursor:"pointer" };
+}
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(React.createElement(App));
+  </script>
+</body>
+</html>
