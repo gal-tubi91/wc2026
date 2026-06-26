@@ -11,27 +11,36 @@
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; padding: 0; background: #0a1628; color: #e8edf5; }
     #root { min-height: 100vh; }
+
+    /* Desktop: make bracket fill screen width */
+    @media (min-width: 900px) {
+      .bracket-outer {
+        overflow-x: visible !important;
+        display: flex !important;
+        justify-content: center !important;
+      }
+      .bracket-scaler {
+        transform-origin: top center;
+        width: fit-content;
+        margin: 0 auto;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="root">
     <div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:12px;color:#8ba3c4;font-family:sans-serif">
-      <div style="font-size:40px">⚽</div>
-      <div>טוען...</div>
+      <div style="font-size:40px">⚽</div><div>טוען...</div>
     </div>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-
   <script>
-    // Load scores from scores.json, then launch app
     fetch('scores.json?v=' + Date.now())
       .then(r => r.json())
       .then(d => { window.__WC_BAKED__ = d.baked || {}; window.__WC_LIVE__ = d.live || {}; })
       .catch(() => { window.__WC_BAKED__ = {}; window.__WC_LIVE__ = {}; })
       .finally(runApp);
-
     function runApp() {
 const {
   useState,
@@ -1150,21 +1159,21 @@ const HE_MONTHS = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 function App() {
-  const [filter, setFilter] = useState("all");
-  const [selected, setSelected] = useState(new Set());
-  const [showKnockout, setShowKnockout] = useState(true);
-  const [search, setSearch] = useState("");
-  const [view, setView] = useState("schedule"); // "schedule" | "standings" | "bracket"
-  const [standGroup, setStandGroup] = useState("A");
-  const [detailMatch, setDetailMatch] = useState(null); // match shown in detail modal
-  const [calQueue, setCalQueue] = useState(null); // list of matches to add to calendar (overlay)
+  const [filter, setFilter] = React.useState("all");
+  const [selected, setSelected] = React.useState(new Set());
+  const [showKnockout, setShowKnockout] = React.useState(true);
+  const [search, setSearch] = React.useState("");
+  const [view, setView] = React.useState("schedule"); // "schedule" | "standings" | "bracket"
+  const [standGroup, setStandGroup] = React.useState("A");
+  const [detailMatch, setDetailMatch] = React.useState(null); // match shown in detail modal
+  const [calQueue, setCalQueue] = React.useState(null); // list of matches to add to calendar (overlay)
   const scores = KNOWN_SCORES; // baked-in final results
   const liveScores = LIVE_SCORES; // baked-in interim scores for in-progress matches
-  const todayRef = useRef(null);
-  const scrollPosRef = useRef(0); // saves scroll position when entering standings
+  const todayRef = React.useRef(null);
+  const scrollPosRef = React.useRef(0); // saves scroll position when entering standings
 
   // ── Scroll to today on first render ──────────────────────────────────────────
-  useEffect(() => {
+  React.useEffect(() => {
     const t = setTimeout(() => {
       if (todayRef.current) {
         todayRef.current.scrollIntoView({
@@ -1175,10 +1184,10 @@ function App() {
     }, 100);
     return () => clearTimeout(t);
   }, []);
-  const allMatches = useMemo(() => [...GROUP_STAGE, ...KNOCKOUT], []);
+  const allMatches = React.useMemo(() => [...GROUP_STAGE, ...KNOCKOUT], []);
 
   // ── filter logic ────────────────────────────────────────────────────────────
-  const filteredGroup = useMemo(() => {
+  const filteredGroup = React.useMemo(() => {
     let m = GROUP_STAGE;
     if (filter !== "all") m = m.filter(g => g.group === filter);
     if (search) {
@@ -1187,7 +1196,7 @@ function App() {
     }
     return m;
   }, [filter, search]);
-  const filteredKnockout = useMemo(() => {
+  const filteredKnockout = React.useMemo(() => {
     if (!showKnockout) return [];
     if (search) {
       const s = search.toLowerCase();
@@ -1229,7 +1238,7 @@ function App() {
   }
 
   // ── grouping by IDT date ─────────────────────────────────────────────────────
-  const groupedGroup = useMemo(() => {
+  const groupedGroup = React.useMemo(() => {
     const map = {};
     filteredGroup.forEach(m => {
       const {
@@ -1239,7 +1248,7 @@ function App() {
     });
     return map;
   }, [filteredGroup]);
-  const groupedKnockout = useMemo(() => {
+  const groupedKnockout = React.useMemo(() => {
     const map = {};
     filteredKnockout.forEach(m => {
       const {
@@ -1647,7 +1656,26 @@ function App() {
         padding: "34px 6px 80px",
         overflowX: "auto"
       }
+    }, /*#__PURE__*/React.createElement("style", null, `
+              @media (min-width: 900px) {
+                .bracket-scaler {
+                  transform-origin: top center;
+                  width: fit-content;
+                  margin: 0 auto;
+                }
+                .bracket-outer {
+                  overflow-x: visible !important;
+                  display: flex;
+                  justify-content: center;
+                }
+              }
+            `), /*#__PURE__*/React.createElement("div", {
+      className: "bracket-outer",
+      style: {
+        overflowX: "auto"
+      }
     }, /*#__PURE__*/React.createElement("div", {
+      className: "bracket-scaler",
       style: {
         display: "flex",
         alignItems: "flex-start",
@@ -1831,7 +1859,7 @@ function App() {
       items: R32R,
       yFn: r32Y,
       colW: CW.r32
-    })));
+    }))));
   })(), view === "standings" && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "16px",
