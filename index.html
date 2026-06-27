@@ -769,7 +769,7 @@ const KNOCKOUT = [{
   etTime: "16:30",
   stage: "שלב 32",
   home: "גרמניה 🇩🇪",
-  away: "מקום 3 (A/B/C/D/F)",
+  away: "פרגוואי 🇵🇾",
   venue: "NRG Stadium"
 }, {
   id: 75,
@@ -793,7 +793,7 @@ const KNOCKOUT = [{
   etTime: "22:00",
   stage: "שלב 32",
   home: "צרפת 🇫🇷",
-  away: "מקום 3 (C/D/F/G/H)",
+  away: "שוודיה 🇸🇪",
   venue: "AT&T Stadium"
 }, {
   id: 78,
@@ -832,7 +832,7 @@ const KNOCKOUT = [{
   date: "2026-07-01",
   etTime: "22:00",
   stage: "שלב 32",
-  home: "בית G מקום 1",
+  home: "בלגיה 🇧🇪",
   away: "מקום 3 (A/E/H/I/J)",
   venue: "Levi's Stadium"
 }, {
@@ -865,7 +865,7 @@ const KNOCKOUT = [{
   etTime: "14:00",
   stage: "שלב 32",
   home: "אוסטרליה 🇦🇺",
-  away: "בית G מקום 2",
+  away: "מצרים 🇪🇬",
   venue: "AT&T Stadium"
 }, {
   id: 87,
@@ -880,7 +880,7 @@ const KNOCKOUT = [{
   date: "2026-07-03",
   etTime: "21:30",
   stage: "שלב 32",
-  home: "קולומביה 🇨🇴",
+  home: "בית K מקום 1",
   away: "מקום 3 (A/B/C/L)",
   venue: "Arrowhead Stadium"
 }, {
@@ -1156,7 +1156,37 @@ function App() {
   const scores = KNOWN_SCORES; // baked-in final results
   const liveScores = LIVE_SCORES; // baked-in interim scores for in-progress matches
   const todayRef = React.useRef(null);
-  const scrollPosRef = React.useRef(0); // saves scroll position when entering standings
+  const scrollPosRef = React.useRef(0); // saves scroll position when entering standings/bracket
+  const bracketScrollRef = React.useRef(0); // saves vertical scroll inside bracket tab
+  const prevViewRef = React.useRef("schedule"); // tracks previous view to save scroll on leave
+
+  // Save scroll when leaving bracket, restore when entering bracket
+  React.useEffect(() => {
+    const prev = prevViewRef.current;
+    // If we just ENTERED bracket, restore its saved scroll
+    if (view === "bracket" && prev !== "bracket") {
+      const pos = bracketScrollRef.current;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        window.scrollTo({
+          top: pos,
+          behavior: "instant"
+        });
+      }));
+    }
+    prevViewRef.current = view;
+  }, [view]);
+
+  // Continuously track bracket scroll position while viewing it
+  React.useEffect(() => {
+    if (view !== "bracket") return;
+    const onScroll = () => {
+      bracketScrollRef.current = window.scrollY;
+    };
+    window.addEventListener("scroll", onScroll, {
+      passive: true
+    });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [view]);
 
   // ── Scroll to today on first render ──────────────────────────────────────────
   React.useEffect(() => {
@@ -1312,7 +1342,7 @@ function App() {
           });
         });
       } else {
-        // Save scroll position + clear selection before entering standings
+        // Save scroll — if in bracket, save bracket pos; otherwise save schedule pos
         scrollPosRef.current = window.scrollY;
         setSelected(new Set());
         setView("standings");
@@ -1340,7 +1370,7 @@ function App() {
           behavior: "instant"
         })));
       } else {
-        scrollPosRef.current = window.scrollY;
+        if (view === "schedule") scrollPosRef.current = window.scrollY;
         setSelected(new Set());
         setView("bracket");
       }
@@ -1396,9 +1426,9 @@ function App() {
     const ROUND_PAD = 8; // padding at top before first match
 
     // One match pair: [home, away] or null
-    const R32L = [["גרמניה 🇩🇪", "מקום 3 (A/B/C/D/F)"],
+    const R32L = [["גרמניה 🇩🇪", "פרגוואי 🇵🇾"],
     // M74
-    ["צרפת 🇫🇷", "מקום 3 (C/D/F/G/H)"],
+    ["צרפת 🇫🇷", "שוודיה 🇸🇪"],
     // M77
     ["ד. אפריקה 🇿🇦", "קנדה 🇨🇦"],
     // M73
@@ -1410,7 +1440,7 @@ function App() {
     // M84
     ['ארה"ב 🇺🇸', "בוסניה 🇧🇦"],
     // M81
-    ["בית G מקום 1", "מקום 3 (A/E/H/I/J)"] // M82
+    ["בלגיה 🇧🇪", "מקום 3 (A/E/H/I/J)"] // M82
     ];
     const R32R = [["ברזיל 🇧🇷", "יפן 🇯🇵"],
     // M76
@@ -1422,11 +1452,11 @@ function App() {
     // M80
     ["ארגנטינה 🇦🇷", "כף ורדה 🇨🇻"],
     // M86
-    ["אוסטרליה 🇦🇺", "בית G מקום 2"],
+    ["אוסטרליה 🇦🇺", "מצרים 🇪🇬"],
     // M88
     ["שווייץ 🇨🇭", "מקום 3 (E/F/G/I/J)"],
     // M85
-    ["קולומביה 🇨🇴", "מקום 3 (D/E/I/J/L)"] // M87
+    ["בית K מקום 1", "מקום 3 (D/E/I/J/L)"] // M87
     ];
     const Slot = ({
       name
@@ -1529,7 +1559,7 @@ function App() {
         color: "#8ba3c4",
         textTransform: "uppercase",
         position: "absolute",
-        top: -18,
+        top: -20,
         left: 0,
         right: 0
       }
@@ -1665,7 +1695,9 @@ function App() {
       style: {
         display: "flex",
         alignItems: "flex-start",
-        minWidth: 800
+        minWidth: 800,
+        overflow: "visible",
+        paddingTop: 20
       }
     }, /*#__PURE__*/React.createElement(AbsCol, {
       label: "שלב 32",
