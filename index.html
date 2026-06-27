@@ -11,28 +11,14 @@
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; padding: 0; background: #0a1628; color: #e8edf5; }
     #root { min-height: 100vh; }
-
-    /* Desktop: make bracket fill screen width */
     @media (min-width: 900px) {
-      .bracket-outer {
-        overflow-x: visible !important;
-        display: flex !important;
-        justify-content: center !important;
-      }
-      .bracket-scaler {
-        transform-origin: top center;
-        width: fit-content;
-        margin: 0 auto;
-      }
+      .bracket-outer { overflow-x: visible !important; display: flex !important; justify-content: center !important; }
+      .bracket-scaler { transform-origin: top center; width: fit-content; margin: 0 auto; }
     }
   </style>
 </head>
 <body>
-  <div id="root">
-    <div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:12px;color:#8ba3c4;font-family:sans-serif">
-      <div style="font-size:40px">⚽</div><div>טוען...</div>
-    </div>
-  </div>
+  <div id="root"><div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:12px;color:#8ba3c4;font-family:sans-serif"><div style="font-size:40px">⚽</div><div>טוען...</div></div></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script>
@@ -806,7 +792,7 @@ const KNOCKOUT = [{
   date: "2026-06-30",
   etTime: "22:00",
   stage: "שלב 32",
-  home: "בית I מקום 1",
+  home: "צרפת 🇫🇷",
   away: "מקום 3 (C/D/F/G/H)",
   venue: "AT&T Stadium"
 }, {
@@ -815,7 +801,7 @@ const KNOCKOUT = [{
   etTime: "13:00",
   stage: "שלב 32",
   home: "ח. השנהב 🇨🇮",
-  away: "בית I מקום 2",
+  away: "נורווגיה 🇳🇴",
   venue: "MetLife Stadium"
 }, {
   id: 79,
@@ -854,7 +840,7 @@ const KNOCKOUT = [{
   date: "2026-07-02",
   etTime: "15:00",
   stage: "שלב 32",
-  home: "בית H מקום 1",
+  home: "ספרד 🇪🇸",
   away: "בית J מקום 2",
   venue: "SoFi Stadium"
 }, {
@@ -887,14 +873,14 @@ const KNOCKOUT = [{
   etTime: "18:00",
   stage: "שלב 32",
   home: "ארגנטינה 🇦🇷",
-  away: "בית H מקום 2",
+  away: "כף ורדה 🇨🇻",
   venue: "Hard Rock Stadium"
 }, {
   id: 88,
   date: "2026-07-03",
   etTime: "21:30",
   stage: "שלב 32",
-  home: "בית K מקום 1",
+  home: "קולומביה 🇨🇴",
   away: "מקום 3 (A/B/C/L)",
   venue: "Arrowhead Stadium"
 }, {
@@ -1412,7 +1398,7 @@ function App() {
     // One match pair: [home, away] or null
     const R32L = [["גרמניה 🇩🇪", "מקום 3 (A/B/C/D/F)"],
     // M74
-    ["בית I מקום 1", "מקום 3 (C/D/F/G/H)"],
+    ["צרפת 🇫🇷", "מקום 3 (C/D/F/G/H)"],
     // M77
     ["ד. אפריקה 🇿🇦", "קנדה 🇨🇦"],
     // M73
@@ -1420,7 +1406,7 @@ function App() {
     // M75
     ["בית K מקום 2", "בית L מקום 2"],
     // M83
-    ["בית H מקום 1", "בית J מקום 2"],
+    ["ספרד 🇪🇸", "בית J מקום 2"],
     // M84
     ['ארה"ב 🇺🇸', "בוסניה 🇧🇦"],
     // M81
@@ -1428,19 +1414,19 @@ function App() {
     ];
     const R32R = [["ברזיל 🇧🇷", "יפן 🇯🇵"],
     // M76
-    ["ח. השנהב 🇨🇮", "בית I מקום 2"],
+    ["ח. השנהב 🇨🇮", "נורווגיה 🇳🇴"],
     // M78
     ["מקסיקו 🇲🇽", "מקום 3 (C/E/F/H/I)"],
     // M79
     ["בית L מקום 1", "מקום 3 (E/H/I/J/K)"],
     // M80
-    ["ארגנטינה 🇦🇷", "בית H מקום 2"],
+    ["ארגנטינה 🇦🇷", "כף ורדה 🇨🇻"],
     // M86
     ["אוסטרליה 🇦🇺", "בית G מקום 2"],
     // M88
     ["שווייץ 🇨🇭", "מקום 3 (E/F/G/I/J)"],
     // M85
-    ["בית K מקום 1", "מקום 3 (D/E/I/J/L)"] // M87
+    ["קולומביה 🇨🇴", "מקום 3 (D/E/I/J/L)"] // M87
     ];
     const Slot = ({
       name
