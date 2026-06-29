@@ -1660,10 +1660,34 @@ function App() {
     const empties = n => Array(n).fill(null);
     const r32Lys = R32L.map((_, i) => r32Y(i));
     const r32Rys = R32R.map((_, i) => r32Y(i));
-    const r16Lys = empties(4).map((_, i) => r16Y(i));
-    const r16Rys = empties(4).map((_, i) => r16Y(i));
-    const qfLys = empties(2).map((_, i) => qfY(i));
-    const qfRys = empties(2).map((_, i) => qfY(i));
+    // ── שמינית גמר, רבע גמר, חצי גמר, גמר ────────────────────────────
+    // FIFA official R16 pairs (winner of M73-M76 feeds M89-M92, etc.)
+    // Left side R16: M89=W74+W77, M90=W73+W75, M93=W83+W84, M94=W81+W82
+    const R16L = [[null, null],
+    // M89: W74 (Germany/Paraguay) vs W77 (France/Sweden)
+    ["קנדה 🇨🇦", null],
+    // M90: W73=Canada vs W75 (Netherlands/Morocco)
+    [null, null],
+    // M93: W83 (Portugal/Croatia) vs W84 (Spain/Austria)
+    [null, null] // M94: W81 (USA/Bosnia) vs W82 (Belgium/Senegal)
+    ];
+    // Right side R16: M91=W76+W78, M92=W79+W80, M95=W86+W88, M96=W85+W87
+    const R16R = [[null, null],
+    // M91: W76 (Brazil/Japan) vs W78 (CIV/Norway)
+    [null, null],
+    // M92: W79 (Mexico/Ecuador) vs W80 (England/Congo)
+    [null, null],
+    // M95: W86 (Argentina/CPV) vs W88 (Australia/Egypt)
+    [null, null] // M96: W85 (Switzerland/Algeria) vs W87 (Colombia/Ghana)
+    ];
+    const QFL = [[null, null], [null, null]];
+    const QFR = [[null, null], [null, null]];
+    const SFL = [[null, null]];
+    const SFR = [[null, null]];
+    const r16Lys = R16L.map((_, i) => r16Y(i));
+    const r16Rys = R16R.map((_, i) => r16Y(i));
+    const qfLys = QFL.map((_, i) => qfY(i));
+    const qfRys = QFR.map((_, i) => qfY(i));
     const sfLy = sfY();
     const sfRy = sfY();
     const fY = finalY;
@@ -1712,7 +1736,7 @@ function App() {
       flip: false
     }), /*#__PURE__*/React.createElement(AbsCol, {
       label: "שמינית גמר",
-      items: empties(4),
+      items: R16L,
       yFn: r16Y,
       colW: CW.r16
     }), /*#__PURE__*/React.createElement(ConnSVG, {
@@ -1723,7 +1747,7 @@ function App() {
       flip: false
     }), /*#__PURE__*/React.createElement(AbsCol, {
       label: "רבע גמר",
-      items: empties(2),
+      items: QFL,
       yFn: qfY,
       colW: CW.qf
     }), /*#__PURE__*/React.createElement(ConnSVG, {
@@ -1734,7 +1758,7 @@ function App() {
       flip: false
     }), /*#__PURE__*/React.createElement(AbsCol, {
       label: "חצי גמר",
-      items: empties(1),
+      items: SFL,
       yFn: sfY,
       colW: CW.sf
     }), /*#__PURE__*/React.createElement(FinalConn, {
@@ -1841,7 +1865,7 @@ function App() {
       flip: true
     }), /*#__PURE__*/React.createElement(AbsCol, {
       label: "חצי גמר",
-      items: empties(1),
+      items: SFR,
       yFn: sfY,
       colW: CW.sf
     }), /*#__PURE__*/React.createElement(ConnSVG, {
@@ -1852,7 +1876,7 @@ function App() {
       flip: true
     }), /*#__PURE__*/React.createElement(AbsCol, {
       label: "רבע גמר",
-      items: empties(2),
+      items: QFR,
       yFn: qfY,
       colW: CW.qf
     }), /*#__PURE__*/React.createElement(ConnSVG, {
@@ -1863,7 +1887,7 @@ function App() {
       flip: true
     }), /*#__PURE__*/React.createElement(AbsCol, {
       label: "שמינית גמר",
-      items: empties(4),
+      items: R16R,
       yFn: r16Y,
       colW: CW.r16
     }), /*#__PURE__*/React.createElement(ConnSVG, {
