@@ -830,7 +830,7 @@ const KNOCKOUT = [{
 }, {
   id: 82,
   date: "2026-07-01",
-  etTime: "13:00",
+  etTime: "16:00",
   stage: "שלב 32",
   home: "בלגיה 🇧🇪",
   away: "סנגל 🇸🇳",
@@ -1415,7 +1415,8 @@ function App() {
     // Constants — fixed heights so connectors align perfectly
     const SH = 24; // slot height px
     const MG = 2; // gap inside match (between 2 slots)
-    const MH = SH * 2 + MG; // match box height = 50
+    const DH = 13; // date/time line height below match
+    const MH = SH * 2 + MG + DH; // match box height = 50+13 = 63
     // Spacing between matches in each round:
     // R32: 0px between pairs, 8px between groups of 2
     // R16: MH+8 space between matches (to align with R32 pairs)
@@ -1426,37 +1427,37 @@ function App() {
     const ROUND_PAD = 8; // padding at top before first match
 
     // One match pair: [home, away] or null
-    const R32L = [["גרמניה 🇩🇪", "פרגוואי 🇵🇾"],
+    const R32L = [["גרמניה 🇩🇪", "פרגוואי 🇵🇾", "29/6 23:30"],
     // M74
-    ["צרפת 🇫🇷", "שוודיה 🇸🇪"],
+    ["צרפת 🇫🇷", "שוודיה 🇸🇪", "1/7 00:00"],
     // M77
-    ["ד. אפריקה 🇿🇦", "קנדה 🇨🇦"],
+    ["ד. אפריקה 🇿🇦", "קנדה 🇨🇦", "28/6 22:00"],
     // M73
-    ["הולנד 🇳🇱", "מרוקו 🇲🇦"],
+    ["הולנד 🇳🇱", "מרוקו 🇲🇦", "30/6 04:00"],
     // M75
-    ["פורטוגל 🇵🇹", "קרואטיה 🇭🇷"],
+    ["פורטוגל 🇵🇹", "קרואטיה 🇭🇷", "3/7 02:00"],
     // M83
-    ["ספרד 🇪🇸", "אוסטריה 🇦🇹"],
+    ["ספרד 🇪🇸", "אוסטריה 🇦🇹", "2/7 22:00"],
     // M84
-    ['ארה"ב 🇺🇸', "בוסניה 🇧🇦"],
+    ['ארה"ב 🇺🇸', "בוסניה 🇧🇦", "2/7 03:00"],
     // M81
-    ["בלגיה 🇧🇪", "סנגל 🇸🇳"] // M82
+    ["בלגיה 🇧🇪", "סנגל 🇸🇳", "1/7 23:00"] // M82
     ];
-    const R32R = [["ברזיל 🇧🇷", "יפן 🇯🇵"],
+    const R32R = [["ברזיל 🇧🇷", "יפן 🇯🇵", "29/6 20:00"],
     // M76
-    ["ח. השנהב 🇨🇮", "נורווגיה 🇳🇴"],
+    ["ח. השנהב 🇨🇮", "נורווגיה 🇳🇴", "30/6 20:00"],
     // M78
-    ["מקסיקו 🇲🇽", "אקוודור 🇪🇨"],
+    ["מקסיקו 🇲🇽", "אקוודור 🇪🇨", "1/7 04:00"],
     // M79
-    ["אנגליה 🏴󠁧󠁢󠁥󠁮󠁧󠁿", "קונגו 🇨🇩"],
+    ["אנגליה 🏴󠁧󠁢󠁥󠁮󠁧󠁿", "קונגו 🇨🇩", "1/7 19:00"],
     // M80
-    ["ארגנטינה 🇦🇷", "כף ורדה 🇨🇻"],
+    ["ארגנטינה 🇦🇷", "כף ורדה 🇨🇻", "4/7 01:00"],
     // M86
-    ["אוסטרליה 🇦🇺", "מצרים 🇪🇬"],
+    ["אוסטרליה 🇦🇺", "מצרים 🇪🇬", "3/7 21:00"],
     // M88
-    ["שווייץ 🇨🇭", "אלג'יריה 🇩🇿"],
+    ["שווייץ 🇨🇭", "אלג'יריה 🇩🇿", "3/7 06:00"],
     // M85
-    ["קולומביה 🇨🇴", "גאנה 🇬🇭"] // M87
+    ["קולומביה 🇨🇴", "גאנה 🇬🇭", "4/7 04:30"] // M87
     ];
     const Slot = ({
       name
@@ -1486,18 +1487,30 @@ function App() {
     const MB = ({
       pair,
       style
-    }) => /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        gap: MG,
-        ...style
-      }
-    }, /*#__PURE__*/React.createElement(Slot, {
-      name: pair?.[0]
-    }), /*#__PURE__*/React.createElement(Slot, {
-      name: pair?.[1]
-    }));
+    }) => {
+      const dt = pair?.[2]; // optional "DD/M HH:MM" string
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "column",
+          gap: MG,
+          ...style
+        }
+      }, /*#__PURE__*/React.createElement(Slot, {
+        name: pair?.[0]
+      }), /*#__PURE__*/React.createElement(Slot, {
+        name: pair?.[1]
+      }), dt && /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 9,
+          color: "#607590",
+          textAlign: "center",
+          height: 13,
+          lineHeight: "13px",
+          letterSpacing: .3
+        }
+      }, dt));
+    };
 
     // We build each half as a flex-column of rows.
     // R32: 8 matches, stacked with R32_SPACE gap
@@ -1663,27 +1676,27 @@ function App() {
     // ── שמינית גמר, רבע גמר, חצי גמר, גמר ────────────────────────────
     // FIFA official R16 pairs (winner of M73-M76 feeds M89-M92, etc.)
     // Left side R16: M89=W74+W77, M90=W73+W75, M93=W83+W84, M94=W81+W82
-    const R16L = [["פרגוואי 🇵🇾", "צרפת 🇫🇷"],
-    // M89: W74=Paraguay vs W77=France
-    ["קנדה 🇨🇦", "מרוקו 🇲🇦"],
-    // M90: W73=Canada vs W75=Morocco
-    [null, null],
-    // M93: W83 (Portugal/Croatia) vs W84 (Spain/Austria)
-    [null, null] // M94: W81 (USA/Bosnia) vs W82 (Belgium/Senegal)
+    const R16L = [["פרגוואי 🇵🇾", "צרפת 🇫🇷", "5/7 00:00"],
+    // M89
+    ["קנדה 🇨🇦", "מרוקו 🇲🇦", "4/7 20:00"],
+    // M90
+    [null, null, "7/7 22:00"],
+    // M93
+    [null, null, "7/7 03:00"] // M94
     ];
     // Right side R16: M91=W76+W78, M92=W79+W80, M95=W86+W88, M96=W85+W87
-    const R16R = [["ברזיל 🇧🇷", "נורווגיה 🇳🇴"],
-    // M91: W76=Brazil vs W78=Norway
-    ["מקסיקו 🇲🇽", null],
-    // M92: W79=Mexico vs W80 (England/Congo)
-    [null, null],
-    // M95: W86 (Argentina/CPV) vs W88 (Australia/Egypt)
-    [null, null] // M96: W85 (Switzerland/Algeria) vs W87 (Colombia/Ghana)
+    const R16R = [["ברזיל 🇧🇷", "נורווגיה 🇳🇴", "5/7 23:00"],
+    // M91
+    ["מקסיקו 🇲🇽", "אנגליה 🏴󠁧󠁢󠁥󠁮󠁧󠁿", "6/7 03:00"],
+    // M92
+    [null, null, "7/7 19:00"],
+    // M95
+    [null, null, "8/7 23:00"] // M96
     ];
-    const QFL = [[null, null], [null, null]];
-    const QFR = [[null, null], [null, null]];
-    const SFL = [[null, null]];
-    const SFR = [[null, null]];
+    const QFL = [[null, null, "9/7 23:00"], [null, null, "10/7 22:00"]];
+    const QFR = [[null, null, "9/7 03:00"], [null, null, "10/7 03:00"]];
+    const SFL = [[null, null, "13/7 23:00"]];
+    const SFR = [[null, null, "14/7 23:00"]];
     const r16Lys = R16L.map((_, i) => r16Y(i));
     const r16Rys = R16R.map((_, i) => r16Y(i));
     const qfLys = QFL.map((_, i) => qfY(i));
