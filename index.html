@@ -1150,6 +1150,7 @@ function App() {
   const [showKnockout, setShowKnockout] = React.useState(true);
   const [search, setSearch] = React.useState("");
   const [view, setView] = React.useState("schedule"); // "schedule" | "standings" | "bracket"
+  const [ready, setReady] = React.useState(false);
   const [standGroup, setStandGroup] = React.useState("A");
   const [detailMatch, setDetailMatch] = React.useState(null); // match shown in detail modal
   const [calQueue, setCalQueue] = React.useState(null); // list of matches to add to calendar (overlay)
@@ -1159,6 +1160,12 @@ function App() {
   const scrollPosRef = React.useRef(0); // saves scroll position when entering standings/bracket
   const bracketScrollRef = React.useRef(0); // saves vertical scroll inside bracket tab
   const prevViewRef = React.useRef("schedule"); // tracks previous view to save scroll on leave
+
+  // Defer full render to after first paint
+  React.useEffect(() => {
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   // Save scroll when leaving bracket, restore when entering bracket
   React.useEffect(() => {
@@ -1278,6 +1285,23 @@ function App() {
   const totalSelected = selected.size;
 
   // ── render ───────────────────────────────────────────────────────────────────
+  if (!ready) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      minHeight: "100vh",
+      background: "linear-gradient(135deg,#0a1628 0%,#1a2d4f 50%,#0d1f3a 100%)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: 12,
+      color: "#8ba3c4",
+      fontFamily: "system-ui,sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 40
+    }
+  }, "⚽"), /*#__PURE__*/React.createElement("div", null, "טוען..."));
   return /*#__PURE__*/React.createElement("div", {
     style: {
       minHeight: "100vh",
@@ -1680,9 +1704,9 @@ function App() {
     // M89
     ["קנדה 🇨🇦", "מרוקו 🇲🇦", "4/7 20:00"],
     // M90
-    [null, null, "7/7 22:00"],
-    // M93
-    [null, null, "7/7 03:00"] // M94
+    [null, null, "6/7 22:00"],
+    // M93: W83 vs W84
+    ['ארה"ב 🇺🇸', "בלגיה 🇧🇪", "7/7 03:00"] // M94: USA vs Belgium
     ];
     // Right side R16: M91=W76+W78, M92=W79+W80, M95=W86+W88, M96=W85+W87
     const R16R = [["ברזיל 🇧🇷", "נורווגיה 🇳🇴", "5/7 23:00"],
@@ -1691,12 +1715,12 @@ function App() {
     // M92
     [null, null, "7/7 19:00"],
     // M95
-    [null, null, "8/7 23:00"] // M96
+    [null, null, "7/7 23:00"] // M96
     ];
     const QFL = [[null, null, "9/7 23:00"], [null, null, "10/7 22:00"]];
-    const QFR = [[null, null, "9/7 03:00"], [null, null, "10/7 03:00"]];
-    const SFL = [[null, null, "13/7 23:00"]];
-    const SFR = [[null, null, "14/7 23:00"]];
+    const QFR = [[null, null, "12/7 00:00"], [null, null, "12/7 04:00"]];
+    const SFL = [[null, null, "14/7 22:00"]];
+    const SFR = [[null, null, "15/7 22:00"]];
     const r16Lys = R16L.map((_, i) => r16Y(i));
     const r16Rys = R16R.map((_, i) => r16Y(i));
     const qfLys = QFL.map((_, i) => qfY(i));
@@ -1812,7 +1836,7 @@ function App() {
         fontSize: 8.5,
         color: "#8ba3c4"
       }
-    }, "19/7 · 03:00")), /*#__PURE__*/React.createElement("div", {
+    }, "19/7 · 22:00")), /*#__PURE__*/React.createElement("div", {
       style: {
         position: "absolute",
         top: fY - 40,
@@ -1837,7 +1861,7 @@ function App() {
     })), /*#__PURE__*/React.createElement("div", {
       style: {
         position: "absolute",
-        top: fY + 50,
+        top: fY + 48,
         left: 0,
         right: 0,
         textAlign: "center"
@@ -1848,10 +1872,15 @@ function App() {
         fontWeight: 700,
         color: "#8ba3c4"
       }
-    }, "מקום 3")), /*#__PURE__*/React.createElement("div", {
+    }, "מקום 3"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 8.5,
+        color: "#8ba3c4"
+      }
+    }, "19/7 · 00:00")), /*#__PURE__*/React.createElement("div", {
       style: {
         position: "absolute",
-        top: fY + 66,
+        top: fY + 76,
         left: 0,
         right: 0,
         background: "rgba(255,255,255,.04)",
